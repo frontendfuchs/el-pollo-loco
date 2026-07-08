@@ -13,11 +13,14 @@ export class Chicken extends MovableObject {
         this.loadImages(this.CHICKEN_WALK);
 
         this.x= 200 + Math.random() * 500;
+        this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
     }
 
     //Das ist die funktion die das Bild austauscht
     animate() {
+        this.moveLeft();
+
         setInterval(() => {
             let i = this.currentImage % this.CHICKEN_WALK.length; // let i = 7 % 6; => 1 , Rest 1, das mathematische rest 
             //i = 0,1,2,3,4,5,6,0,1 
