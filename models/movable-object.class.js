@@ -5,18 +5,29 @@ export class MovableObject {
     img;
     height = 150;
     width = 100;
+    imageCache = {};
 
-// loadImage('img/test.png');
+    // loadImage('img/test.png');
     loadImage(path) {
         this.img = new Image(); //this.img = document.getElementByID('image')
-        this.img.src = path; 
+        this.img.src = path;
     }
 
-     moveRight() {
+    loadImages(arr) {
+        arr.forEach((path) => {
+
+            let img = new Image();
+            img.src = path;
+            this.imageCache[path] = img;
+        });
+
+    }
+
+    moveRight() {
         console.log('Moving right');
     }
 
-    moveLeft(){
+    moveLeft() {
 
     }
 }
