@@ -7,7 +7,7 @@ export class Character extends MovableObject {
     width = 120;
     y = 160;
     IMAGES_WALK = ImageHelper.CHARACTER.IMAGES_WALKING;
-    currentImage = 0;
+    speed = 5;
 
     constructor() {
         super().loadImage('assets/img/2_character_pepe/2_walk/W-21.png');
@@ -17,13 +17,33 @@ export class Character extends MovableObject {
 
     //Das ist die funktion die das Bild austauscht
     animate() {
+        
+        // rightKey = this.world.keyboard.RIGHT;
+        // leftKey = this.world.keyboard.LEFT;
+        
         setInterval(() => {
-            let i = this.currentImage % this.IMAGES_WALK.length; // let i = 7 % 6; => 1 , Rest 1, das mathematische rest 
-            //i = 0,1,2,3,4,5,6,0,1 
-            let path = this.IMAGES_WALK[i];
-            this.img = this.imageCache[path];
-            this.currentImage++;
-        }, 100);
+            if(this.world.keyboard.RIGHT) {
+                this.x += this.speed;
+            }
+
+            if(this.world.keyboard.LEFT) {
+                this.x -= this.speed;
+            }
+        }, 1000 / 60);
+        
+
+        setInterval(() => {
+            
+
+            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                //WALK ANIMATION
+                let i = this.currentImage % this.IMAGES_WALK.length; // let i = 7 % 6; => 1 , Rest 1, das mathematische rest 
+                //i = 0,1,2,3,4,5,6,0,1 
+                let path = this.IMAGES_WALK[i];
+                this.img = this.imageCache[path];
+                this.currentImage++;
+            }
+        }, 60);
     }
 
 

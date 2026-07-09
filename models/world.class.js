@@ -19,13 +19,22 @@ backgroundObjects = [
     new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png', 0),
     new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png', 0)
 ]
+
 canvas;
+keyboard;
 ctx;
 
-constructor(canvas){
+
+constructor(canvas, keyboard){
     this.ctx = canvas.getContext('2d');
     this.canvas = canvas;
+    this.keyboard = keyboard;
     this.draw();
+    this.setWorld();
+}
+
+setWorld() {
+    this.character.world = this;
 }
 
 //ganz am anfang wird das canavs gelöscht, elemente werden schnell mit diese methode hinzugefügt dass du nicht sehen kannst das es leer ist
@@ -38,9 +47,7 @@ constructor(canvas){
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
         this.addObjectsToMap(this.clouds);
-        
 
-        
         
         requestAnimationFrame(() => this.draw());
     }

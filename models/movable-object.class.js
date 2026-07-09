@@ -7,7 +7,7 @@ export class MovableObject {
     width = 100;
     imageCache = {};
     currentImage = 0;
-        speed = 0.15;
+    speed = 0.15;
 
     // loadImage('img/test.png');
     loadImage(path) {
