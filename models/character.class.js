@@ -6,12 +6,12 @@ export class Character extends MovableObject {
     height = 280;
     width = 120;
     y = 160;
-    IMAGES_WALK = ImageHelper.CHARACTER.IMAGES_WALKING;
+    IMAGES_WALKING = ImageHelper.CHARACTER.IMAGES_WALKING;
     speed = 5;
 
     constructor() {
         super().loadImage('assets/img/2_character_pepe/2_walk/W-21.png');
-        this.loadImages(this.IMAGES_WALK);
+        this.loadImages(this.IMAGES_WALKING);
         this.animate();
     }
 
@@ -22,16 +22,16 @@ export class Character extends MovableObject {
         // leftKey = this.world.keyboard.LEFT;
         
         setInterval(() => {
-            if(this.world.keyboard.RIGHT) {
+            if(this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.x += this.speed;
                 this.otherDirection = false;
             }
 
-            if(this.world.keyboard.LEFT) {
+            if(this.world.keyboard.LEFT && this.x > 0) {
                 this.x -= this.speed;
                 this.otherDirection = true;
             }
-            this.world.camera_x = -this.x
+            this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
         
 
@@ -39,14 +39,10 @@ export class Character extends MovableObject {
             
 
             if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                //WALK ANIMATION
-                let i = this.currentImage % this.IMAGES_WALK.length; // let i = 7 % 6; => 1 , Rest 1, das mathematische rest 
-                //i = 0,1,2,3,4,5,6,0,1 
-                let path = this.IMAGES_WALK[i];
-                this.img = this.imageCache[path];
-                this.currentImage++;
+                //Walk animation
+                this.playAnimation(this.IMAGES_WALKING);
             }
-        }, 60);
+        }, 50);
     }
 
 

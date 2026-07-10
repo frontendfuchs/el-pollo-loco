@@ -26,6 +26,15 @@ export class MovableObject {
 
     }
 
+    playAnimation(images){
+        //WALK ANIMATION
+                let i = this.currentImage % this.IMAGES_WALKING.length; // let i = 7 % 6; => 1 , Rest 1, das mathematische rest 
+                //i = 0,1,2,3,4,5,6,0,1 
+                let path = images[i];
+                this.img = this.imageCache[path];
+                this.currentImage++;
+    }
+
     moveRight() {
         console.log('Moving right');
     }
