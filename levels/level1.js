@@ -3,11 +3,21 @@ import { Chicken } from "../models/chicken.class.js";
 import { Cloud } from "../models/cloud.class.js";
 import { BackgroundObject } from "../models/background-object.class.js";
 import { Endboss } from "../models/endboss.class.js";
+import { ChickenBaby } from "../models/chicken.baby.class.js";
 
 export const level1 = new Level([
     new Chicken(),
     new Chicken(),
     new Chicken(),
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+    new Chicken(),
+
+    new ChickenBaby(),
+    new ChickenBaby(),
+    new ChickenBaby(),
+    new ChickenBaby(),
     new Endboss(),
 ],
 
