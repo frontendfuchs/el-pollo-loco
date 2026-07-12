@@ -23,8 +23,11 @@ new Endboss(),
 ],
 
 [
-new Cloud(),
 
+new Cloud(200),
+new Cloud(800),
+new Cloud(1600),
+new Cloud(2400)
 ],
 
 [
