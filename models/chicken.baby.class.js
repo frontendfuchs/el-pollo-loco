@@ -12,8 +12,8 @@ export class ChickenBaby extends MovableObject {
         super().loadImage('assets/img/3_enemies_chicken/chicken_small/1_walk/1_w.png')
         this.loadImages(this.IMAGES_WALKING);
 
-        this.x= 400 + Math.random() * 2700;
-        this.speed = 0.15 + Math.random() * 0.25;
+        this.x= 500 + Math.random() * 2700;
+        this.speed = 0.40 + Math.random() * 0.45;
         this.animate();
     }
 

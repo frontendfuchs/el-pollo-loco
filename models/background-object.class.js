@@ -1,14 +1,13 @@
-import { MovableObject } from "./movable-object.class.js";
+import { DrawableObject } from "./drawable-object.class.js";
 
-export class BackgroundObject extends MovableObject {
-
+export class BackgroundObject extends DrawableObject {
     width = 720;
     height = 480;
 
     constructor(imagePath, x) {
-        super().loadImage(imagePath);
-        this.y = 480 - this.height; //gesamtte Höhe Canvas 480 -höhe Bild 400
+        super();
+        this.loadImage(imagePath);
+        this.y = 480 - this.height;
         this.x = x;
-
     }
 }

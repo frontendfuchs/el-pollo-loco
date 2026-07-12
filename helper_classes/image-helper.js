@@ -51,5 +51,11 @@ export class ImageHelper {
             'assets/img/4_enemie_boss_chicken/2_alert/G12.png',
         ]
     }
+
+    static BOTTLE = {
+        ON_GROUND: [
+            'assets/img/6_salsa_bottle/1_salsa_bottle_on_ground.png',
+        ]
+    }
 }
 
