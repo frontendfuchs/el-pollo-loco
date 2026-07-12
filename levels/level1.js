@@ -5,6 +5,7 @@ import { BackgroundObject } from "../models/background-object.class.js";
 import { Endboss } from "../models/endboss.class.js";
 import { ChickenBaby } from "../models/chicken.baby.class.js";
 import { CollectBottle } from "../models/collect-bottle.class.js";
+import { Coin } from "../models/coin.class.js";
 
 export const level1 = new Level([
 new Chicken(),
@@ -65,5 +66,33 @@ new CollectBottle(),
 new CollectBottle(),
 new CollectBottle(),
 new CollectBottle(),
+],
+
+[
+    new Coin(250, 220),
+    new Coin(320, 220),
+    new Coin(390, 220),
+
+    new Coin(520, 210),
+    new Coin(560, 180),
+    new Coin(600, 155),
+    new Coin(640, 180),
+    new Coin(680, 210),
+
+    new Coin(850, 220),
+    new Coin(920, 220),
+    new Coin(990, 220),
+
+    new Coin(1120, 205),
+    new Coin(1160, 175),
+    new Coin(1200, 145),
+    new Coin(1240, 145),
+    new Coin(1280, 175),
+    new Coin(1320, 205),
+
+    new Coin(1500, 220),
+    new Coin(1570, 220),
+    new Coin(1640, 220),
+
 ]
 );
