@@ -9,6 +9,7 @@ export class Character extends MovableObject {
     IMAGES_WALKING = ImageHelper.CHARACTER.IMAGES_WALKING;
     IMAGES_JUMPING = ImageHelper.CHARACTER.IMAGES_JUMPING;
     IMAGES_DEAD = ImageHelper.CHARACTER.IMAGES_DEAD;
+    IMAGES_HURT = ImageHelper.CHARACTER.IMAGES_HURT;
     speed = 5;
 
     constructor() {
@@ -16,6 +17,7 @@ export class Character extends MovableObject {
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_HURT);
         this.applyGravity();
         this.animate();
     }
@@ -48,6 +50,8 @@ export class Character extends MovableObject {
 
             if(this.isDead()){
                 this.playAnimation(this.IMAGES_DEAD);
+            } else if(this.isHurt()){
+                this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else {

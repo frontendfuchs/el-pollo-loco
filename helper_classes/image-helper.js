@@ -30,6 +30,12 @@ export class ImageHelper {
             'assets/img/2_character_pepe/5_dead/D-56.png',
             'assets/img/2_character_pepe/5_dead/D-57.png',
             
+        ],
+
+        IMAGES_HURT: [
+            'assets/img/2_character_pepe/4_hurt/H-41.png',
+            'assets/img/2_character_pepe/4_hurt/H-42.png',
+            'assets/img/2_character_pepe/4_hurt/H-43.png',
         ]
     }
 

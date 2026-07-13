@@ -7,6 +7,7 @@ export class MovableObject extends DrawableObject {
     speedY = 0;
     acceleration = 2;
     energy = 100;
+    lastHit = 0;
 
     applyGravity() {
         setInterval(() => {
@@ -41,15 +42,24 @@ export class MovableObject extends DrawableObject {
             this.y < mo.y + mo.height;
     }
 
+    //new Date().getTime() =  so speichert man Zeit in Zahlenform
     hit(){
         this.energy -= 5;
         if (this.energy < 0) {
             this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
         }
+    }
+    isHurt(){
+        let timepassed = new Date().getTime() - this.lastHit; // Diff in ms
+        timepassed = timepassed / 1000; //Diff in s    
+        return timepassed < 1;
     }
 
     isDead(){
         return this.energy == 0;
     }
+
 
 }
