@@ -8,6 +8,7 @@ export class MovableObject extends DrawableObject {
     acceleration = 2;
     energy = 100;
     lastHit = 0;
+    hasDied = false;
 
     applyGravity() {
         setInterval(() => {
@@ -42,24 +43,32 @@ export class MovableObject extends DrawableObject {
             this.y < mo.y + mo.height;
     }
 
-    //new Date().getTime() =  so speichert man Zeit in Zahlenform
-    hit(){
+    //new Date().getTime() = so speichert man Zeit in Zahlenform
+    hit() {
         this.energy -= 5;
-        if (this.energy < 0) {
-            this.energy = 0;
+        if (this.energy <= 0) {
+            this.die();
         } else {
             this.lastHit = new Date().getTime();
         }
     }
-    isHurt(){
+
+    die() {
+        if (this.hasDied) {
+            return;
+        }
+
+        this.hasDied = true;
+        this.energy = 0;
+    }
+
+    isHurt() {
         let timepassed = new Date().getTime() - this.lastHit; // Diff in ms
-        timepassed = timepassed / 1000; //Diff in s    
+        timepassed = timepassed / 1000; //Diff in s
         return timepassed < 1;
     }
 
-    isDead(){
+    isDead() {
         return this.energy == 0;
     }
-
-
 }
