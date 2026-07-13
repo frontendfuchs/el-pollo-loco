@@ -19,7 +19,9 @@ export class Chicken extends MovableObject {
 
     //Das ist die funktion die das Bild austauscht
     animate() {
-    this.moveLeft();
+        setInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60);
 
     setInterval(() => {
         this.playAnimation(this.IMAGES_WALKING);

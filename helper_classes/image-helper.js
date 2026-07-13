@@ -1,25 +1,36 @@
 export class ImageHelper {
     static CHARACTER = {
         IMAGES_WALKING: [
-        'assets/img/2_character_pepe/2_walk/W-21.png',
-        'assets/img/2_character_pepe/2_walk/W-22.png',
-        'assets/img/2_character_pepe/2_walk/W-23.png',
-        'assets/img/2_character_pepe/2_walk/W-24.png',
-        'assets/img/2_character_pepe/2_walk/W-25.png',
-        'assets/img/2_character_pepe/2_walk/W-26.png'
-    ],
+            'assets/img/2_character_pepe/2_walk/W-21.png',
+            'assets/img/2_character_pepe/2_walk/W-22.png',
+            'assets/img/2_character_pepe/2_walk/W-23.png',
+            'assets/img/2_character_pepe/2_walk/W-24.png',
+            'assets/img/2_character_pepe/2_walk/W-25.png',
+            'assets/img/2_character_pepe/2_walk/W-26.png'
+        ],
 
-    IMAGES_JUMPING: [
-        'assets/img/2_character_pepe/3_jump/J-31.png',
-        'assets/img/2_character_pepe/3_jump/J-32.png',
-        'assets/img/2_character_pepe/3_jump/J-33.png',
-        'assets/img/2_character_pepe/3_jump/J-34.png',
-        'assets/img/2_character_pepe/3_jump/J-35.png',
-        'assets/img/2_character_pepe/3_jump/J-36.png',
-        'assets/img/2_character_pepe/3_jump/J-37.png',
-        'assets/img/2_character_pepe/3_jump/J-38.png',
-        'assets/img/2_character_pepe/3_jump/J-39.png',
-    ]
+        IMAGES_JUMPING: [
+            'assets/img/2_character_pepe/3_jump/J-31.png',
+            'assets/img/2_character_pepe/3_jump/J-32.png',
+            'assets/img/2_character_pepe/3_jump/J-33.png',
+            'assets/img/2_character_pepe/3_jump/J-34.png',
+            'assets/img/2_character_pepe/3_jump/J-35.png',
+            'assets/img/2_character_pepe/3_jump/J-36.png',
+            'assets/img/2_character_pepe/3_jump/J-37.png',
+            'assets/img/2_character_pepe/3_jump/J-38.png',
+            'assets/img/2_character_pepe/3_jump/J-39.png',
+        ],
+
+        IMAGES_DEAD: [
+            'assets/img/2_character_pepe/5_dead/D-51.png',
+            'assets/img/2_character_pepe/5_dead/D-52.png',
+            'assets/img/2_character_pepe/5_dead/D-53.png',
+            'assets/img/2_character_pepe/5_dead/D-54.png',
+            'assets/img/2_character_pepe/5_dead/D-55.png',
+            'assets/img/2_character_pepe/5_dead/D-56.png',
+            'assets/img/2_character_pepe/5_dead/D-57.png',
+            
+        ]
     }
 
     static CHICKEN = {
@@ -27,7 +38,7 @@ export class ImageHelper {
             'assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
             'assets/img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
             'assets/img/3_enemies_chicken/chicken_normal/1_walk/3_w.png',
-            
+
         ]
     }
 
