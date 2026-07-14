@@ -10,7 +10,7 @@ export class World {
     statusBar = new StatusBar();
     character = new Character();
     level = level1;
-    
+
     canvas;
     keyboard;
     ctx;
@@ -30,11 +30,12 @@ export class World {
         this.character.world = this;
     }
 
-    checkCollisions(){
+    checkCollisions() {
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
-                if(this.character.isColliding(enemy) ) {
+                if (!this.character.isDead() && this.character.isColliding(enemy)) {
                     this.character.hit();
+                    this.statusBar.setPercentage(this.character.energy);
                 }
             })
         }, 200);
@@ -44,19 +45,21 @@ export class World {
     //es wird schicht für schicht drüber gemalt
     //hintegrundobjekt als erstes weil alle andere objekte drüber liegen als schichten 
     draw() {
+
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.ctx.translate(this.camera_x, 0);
 
         this.addObjectsToMap(this.level.backgroundObjects);
-        this.addToMap(this.statusBar);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.coin);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
 
+        
         this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.statusBar);
 
 
         //Draw() wird immer wieder aufgerufen
@@ -90,16 +93,16 @@ export class World {
         }
     }
 
-    
 
-    flipImage(mo){
+
+    flipImage(mo) {
         this.ctx.save();
-            this.ctx.translate(mo.width, 0);
-            this.ctx.scale(-1, 1);
-            mo.x = mo.x * -1;
+        this.ctx.translate(mo.width, 0);
+        this.ctx.scale(-1, 1);
+        mo.x = mo.x * -1;
     }
 
-    flipImageBack(mo){
+    flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
     }

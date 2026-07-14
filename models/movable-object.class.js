@@ -1,5 +1,6 @@
 import { DrawableObject } from "./drawable-object.class.js";
 
+
 //wir haben eine Schablone erstellt wo wir sagen welche Felder dort drin sein sollen
 export class MovableObject extends DrawableObject {
     speed = 0.15;
@@ -37,10 +38,19 @@ export class MovableObject extends DrawableObject {
 
     //character.iscollifding(chicken)
     isColliding(mo) {
-        return this.x + this.width > mo.x &&
-            this.y + this.height > mo.y &&
-            this.x < mo.x &&
-            this.y < mo.y + mo.height;
+        this.getRealFrame();
+        mo.getRealFrame();
+        return this.rX + this.rW > mo.rX &&
+            this.rY + this.rH > mo.rY &&
+            this.rX < mo.rX + mo.rW &&
+            this.rY < mo.rY + mo.rH;
+    }
+
+    getRealFrame() {
+        this.rX = this.x + this.offset.left;
+        this.rY = this.y + this.offset.top;
+        this.rW = this.width - this.offset.left - this.offset.right;
+        this.rH = this.height - this.offset.top - this.offset.bottom;
     }
 
     //new Date().getTime() = so speichert man Zeit in Zahlenform

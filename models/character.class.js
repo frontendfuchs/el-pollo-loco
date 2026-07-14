@@ -12,7 +12,16 @@ export class Character extends MovableObject {
     IMAGES_HURT = ImageHelper.CHARACTER.IMAGES_HURT;
     speed = 5;
     pepeIsDead = false;
-
+    offset = {
+        top: 110,
+        right: 10,
+        bottom: 10,
+        left: 10,
+    };
+    rx;
+    rY;
+    rW;
+    rH;
 
 
     constructor() {
@@ -23,6 +32,7 @@ export class Character extends MovableObject {
         this.loadImages(this.IMAGES_HURT);
         this.applyGravity();
         this.animate();
+        this.getRealFrame();
     }
 
     //Das ist die funktion die das Bild austauscht
@@ -33,17 +43,17 @@ export class Character extends MovableObject {
 
         setInterval(() => {
             if (!this.isDead()) {
-                
+
                 if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                     this.moveRight();
                     this.otherDirection = false;
                 }
-                
+
                 if (this.world.keyboard.LEFT && this.x > 0) {
                     this.moveLeft();
                     this.otherDirection = true;
                 }
-                
+
                 if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                     this.jump();
                 }
@@ -54,18 +64,18 @@ export class Character extends MovableObject {
 
         setInterval(() => {
 
-            if(this.isDead() && !this.pepeIsDead){
+            if (this.isDead() && !this.pepeIsDead) {
                 this.playAnimationDead(this.IMAGES_DEAD);
                 if (this.gameOver()) {
                     this.pepeIsDead = true;
                     console.log("Game Over");
-                    
+
                 }
-            } else if(this.isHurt()){
+            } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
-            } else if(!this.isDead()) {
+            } else if (!this.isDead()) {
 
 
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {

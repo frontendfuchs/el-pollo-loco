@@ -1,5 +1,3 @@
-
-
 export class DrawableObject {
     x = 120;
     y = 280;
@@ -9,6 +7,12 @@ export class DrawableObject {
     imageCache = {};
     currentImage = 0;
     currentImageDead = 1;
+    offset = {
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+    };
 
     loadImage(path) {
         this.img = new Image();
@@ -23,15 +27,18 @@ export class DrawableObject {
         });
     }
 
-    draw(ctx){
+    draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
-    drawFrame(ctx){
+    drawFrame(ctx) {
         ctx.beginPath();
         ctx.lineWidth = '5';
         ctx.strokeStyle = "red";
-        ctx.rect(this.x, this.y, this.width, this.height);
+        ctx.rect(this.x + this.offset.left,
+            this.y + this.offset.top,
+            this.width - this.offset.left - this.offset.right,
+            this.height - this.offset.top - this.offset.bottom,);
         ctx.stroke();
     }
 
@@ -47,14 +54,14 @@ export class DrawableObject {
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImageDead++;
-        if (i == 0){
+        if (i == 0) {
             this.currentImageDead = 0;
             return;
         }
     }
 
     gameOver() {
-            return this.currentImageDead == 0;
+        return this.currentImageDead == 0;
 
     }
 }
