@@ -55,7 +55,7 @@ export class Character extends MovableObject {
         setInterval(() => {
 
             if(this.isDead() && !this.pepeIsDead){
-                this.playAnimationOnce(this.IMAGES_DEAD);
+                this.playAnimationDead(this.IMAGES_DEAD);
                 if (this.gameOver()) {
                     this.pepeIsDead = true;
                     console.log("Game Over");
