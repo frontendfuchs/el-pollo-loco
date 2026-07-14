@@ -4,24 +4,25 @@ import { Character } from "./character.class.js";
 import { Chicken } from "./chicken.class.js";
 import { ChickenBaby } from "./chicken.baby.class.js";
 import { Cloud } from "./cloud.class.js";
+import { StatusBar } from "./status-bar.class.js";
 
 export class World {
     character = new Character();
+    statusBar = new StatusBar();
     level = level1;
 
     canvas;
     keyboard;
     ctx;
     camera_x = 0;
-    statusBar = new StatusBar();
 
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
-        this.draw();
         this.setWorld();
+        this.draw();
         this.checkCollisions();
     }
 
