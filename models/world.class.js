@@ -13,6 +13,7 @@ export class World {
     keyboard;
     ctx;
     camera_x = 0;
+    statusBar = new StatusBar();
 
 
     constructor(canvas, keyboard) {
@@ -47,6 +48,7 @@ export class World {
         this.ctx.translate(this.camera_x, 0);
 
         this.addObjectsToMap(this.level.backgroundObjects);
+        this.addToMap(this.statusBar);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.coin);

@@ -60,6 +60,8 @@ export class Character extends MovableObject {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                     //Walk animation
                     this.playAnimation(this.IMAGES_WALKING);
+                } else {
+                    this.img = this.imageCache[this.IMAGES_WALKING[5]];
                 }
             }
         }, 50);
