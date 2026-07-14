@@ -8,6 +8,7 @@ export class DrawableObject {
     width = 100;
     imageCache = {};
     currentImage = 0;
+    currentImageOnceAnimation = 1;
 
     loadImage(path) {
         this.img = new Image();
@@ -39,5 +40,21 @@ export class DrawableObject {
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
+    }
+
+    playAnimationOnce(images) {
+        let i = this.currentImageOnceAnimation % images.length;
+        let path = images[i];
+        this.img = this.imageCache[path];
+        this.currentImageOnceAnimation++;
+        if (i == 0){
+            this.currentImageOnceAnimation = 0;
+            return;
+        }
+    }
+
+    gameOver() {
+            return this.currentImageOnceAnimation == 0;
+
     }
 }

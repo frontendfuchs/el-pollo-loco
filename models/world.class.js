@@ -7,10 +7,10 @@ import { Cloud } from "./cloud.class.js";
 import { StatusBar } from "./status-bar.class.js";
 
 export class World {
-    character = new Character();
     statusBar = new StatusBar();
+    character = new Character();
     level = level1;
-
+    
     canvas;
     keyboard;
     ctx;

@@ -11,6 +11,9 @@ export class Character extends MovableObject {
     IMAGES_DEAD = ImageHelper.CHARACTER.IMAGES_DEAD;
     IMAGES_HURT = ImageHelper.CHARACTER.IMAGES_HURT;
     speed = 5;
+    pepeIsDead = false;
+
+
 
     constructor() {
         super().loadImage('assets/img/2_character_pepe/2_walk/W-21.png');
@@ -29,32 +32,40 @@ export class Character extends MovableObject {
         // leftKey = this.world.keyboard.LEFT;
 
         setInterval(() => {
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.moveRight();
-                this.otherDirection = false;
+            if (!this.isDead()) {
+                
+                if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+                    this.moveRight();
+                    this.otherDirection = false;
+                }
+                
+                if (this.world.keyboard.LEFT && this.x > 0) {
+                    this.moveLeft();
+                    this.otherDirection = true;
+                }
+                
+                if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+                    this.jump();
+                }
+                this.world.camera_x = -this.x + 100;
             }
-
-            if (this.world.keyboard.LEFT && this.x > 0) {
-                this.moveLeft();
-                this.otherDirection = true;
-            }
-
-            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-                this.jump();
-            }
-            this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
 
 
         setInterval(() => {
 
-            if(this.isDead()){
-                this.playAnimation(this.IMAGES_DEAD);
+            if(this.isDead() && !this.pepeIsDead){
+                this.playAnimationOnce(this.IMAGES_DEAD);
+                if (this.gameOver()) {
+                    this.pepeIsDead = true;
+                    console.log("Game Over");
+                    
+                }
             } else if(this.isHurt()){
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
-            } else {
+            } else if(!this.isDead()) {
 
 
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
