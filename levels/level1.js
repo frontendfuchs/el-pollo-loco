@@ -4,7 +4,7 @@ import { Cloud } from "../models/cloud.class.js";
 import { BackgroundObject } from "../models/background-object.class.js";
 import { Endboss } from "../models/endboss.class.js";
 import { ChickenBaby } from "../models/chicken.baby.class.js";
-import { CollectBottle } from "../models/collect-bottle.class.js";
+import { Bottle } from "../models/bottle.class.js";
 import { Coin } from "../models/coin.class.js";
 
 export const level1 = new Level([
@@ -57,15 +57,15 @@ new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', 719*3
 ],
 
 [
-new CollectBottle(),
-new CollectBottle(),
-new CollectBottle(),
-new CollectBottle(),
-new CollectBottle(),
-new CollectBottle(),
-new CollectBottle(),
-new CollectBottle(),
-new CollectBottle(),
+new Bottle(),
+new Bottle(),
+new Bottle(),
+new Bottle(),
+new Bottle(),
+new Bottle(),
+new Bottle(),
+new Bottle(),
+new Bottle(),
 ],
 
 [
