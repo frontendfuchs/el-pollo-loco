@@ -2,7 +2,7 @@ import { DrawableObject } from "./drawable-object.class.js";
 import { ImageHelper } from "../helper_classes/image-helper.js";
 
 export class StatusBar extends DrawableObject {
-    STATUSBAR = ImageHelper.STATUSBAR.HEALTH;
+    STATUSBAR = ImageHelper.STATUSBAR.IMAGES_HEALTH;
     percentage = 100;
 
     constructor() {
