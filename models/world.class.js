@@ -49,19 +49,63 @@ export class World {
 
 
     checkCollisions() {
-        setInterval(() => {
-            this.level.enemies.forEach((enemy) => {
-                if (!this.character.isDead() && this.character.isColliding(enemy)) {
-                    this.character.hit();
-                    this.statusBar.setPercentage(this.character.energy);
-                }
-            });
-            this.collectCoin();
-            this.collectBottle();
-        }, 200);
-    }
+    setInterval(() => {
+        this.checkJumpOnEnemy();
+        this.checkEnemyAttack();
+        this.collectCoin();
+        this.collectBottle();
+        this.removeDeadEnemy();
+    }, 200);
+}
 
+checkJumpOnEnemy() {
+    this.level.enemies.forEach((enemy) => {
+        if (enemy.isDead()) {
+            return;
+        }
 
+        const fallsDown = this.character.speedY <= 0;
+
+        if (
+            this.character.isColliding(enemy) &&
+            fallsDown &&
+            this.character.rY + this.character.rH < enemy.rY + 35
+        ) {
+            enemy.die();
+            this.character.speedY = 15;
+        }
+    });
+}
+
+checkEnemyAttack() {
+    this.level.enemies.forEach((enemy) => {
+        if (enemy.isDead()) {
+            return;
+        }
+
+        if (
+            !this.character.isDead() &&
+            !this.character.isHurt() &&
+            this.character.isColliding(enemy)
+        ) {
+            this.character.hit();
+            this.statusBar.setPercentage(this.character.energy);
+        }
+    });
+}
+
+removeDeadEnemy() {
+    this.level.enemies = this.level.enemies.filter((enemy) => {
+        if (!enemy.isDead()) {
+            return true;
+        }
+
+        let timePassed = new Date().getTime() - enemy.deathTime;
+        timePassed = timePassed / 1000;
+
+        return timePassed < 0.7;
+    });
+}
 
     collectCoin() {
         this.level.coin = this.level.coin.filter((coin) => {

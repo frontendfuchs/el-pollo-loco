@@ -10,6 +10,7 @@ export class MovableObject extends DrawableObject {
     energy = 100;
     lastHit = 0;
     hasDied = false;
+    deathTime = 0;
 
     applyGravity() {
         setInterval(() => {
@@ -71,6 +72,7 @@ export class MovableObject extends DrawableObject {
         this.hasDied = true;
         this.energy = 0;
         this.speed = 0;
+        this.deathTime = new Date().getTime();
     }
 
     isHurt() {

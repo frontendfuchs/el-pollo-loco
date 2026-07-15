@@ -5,7 +5,7 @@ export class Character extends MovableObject {
 
     height = 280;
     width = 120;
-    y = 10;
+    y = 50;
     IMAGES_WALKING = ImageHelper.CHARACTER.IMAGES_WALKING;
     IMAGES_JUMPING = ImageHelper.CHARACTER.IMAGES_JUMPING;
     IMAGES_DEAD = ImageHelper.CHARACTER.IMAGES_DEAD;
