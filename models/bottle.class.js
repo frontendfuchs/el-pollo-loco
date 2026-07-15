@@ -1,11 +1,10 @@
 import { ImageHelper } from "../helper_classes/image-helper.js";
-import { DrawableObject } from "./drawable-object.class.js";
+import { MovableObject } from "./movable-object.class.js";
 
-export class Bottle extends DrawableObject {
+export class Bottle extends MovableObject {
 
     height = 60;
     width = 60;
-    y = 380;
     offset = {
         top: 15,
         left: 20,
@@ -14,11 +13,12 @@ export class Bottle extends DrawableObject {
     };
     IMAGES_BOTTLE = ImageHelper.BOTTLE.ON_GROUND;
 
-    constructor(){
+    constructor(x,y){
         super();
         this.loadImage('assets/img/6_salsa_bottle/1_salsa_bottle_on_ground.png');
         this.loadImages(this.IMAGES_BOTTLE);
 
-        this.x = 200 + Math.random() * 1700;
+        this.x = x;
+        this.y = y;
     }
 }

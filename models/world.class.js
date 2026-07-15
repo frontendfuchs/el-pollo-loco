@@ -6,14 +6,22 @@ import { ChickenBaby } from "./chicken.baby.class.js";
 import { Cloud } from "./cloud.class.js";
 import { StatusBar } from "./status-bar.class.js";
 import { StatusBarCoins } from "./status-bar-coins.class.js";
+import { StatusBarBottle } from "./status-bar-bottles.class.js";
 
 export class World {
+
     statusBar = new StatusBar();
     statusBarCoins = new StatusBarCoins();
+    statusBarBottle = new StatusBarBottle();
     character = new Character();
     level = level1;
+
     collectedCoins = 0;
     allCoins = this.level.coin.length;
+
+    collectedBottles = 0;
+    allBottles = this.level.bottles.length;
+
 
     canvas;
     keyboard;
@@ -26,6 +34,7 @@ export class World {
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.allCoins = this.level.coin.length;
+        this.allBottles = this.level.bottles.length;
         this.setWorld();
         this.draw();
         this.checkCollisions();
@@ -48,6 +57,7 @@ export class World {
                 }
             });
             this.collectCoin();
+            this.collectBottle();
         }, 200);
     }
 
@@ -73,6 +83,24 @@ export class World {
         this.statusBarCoins.setPercentage(percentage);
     }
 
+    collectBottle() {
+    this.level.bottles = this.level.bottles.filter((bottle) => {
+        const collision = this.character.isColliding(bottle);
+
+        if (collision) {
+            this.collectedBottles++;
+            this.updateBottleStatusBar();
+        }
+
+        return !collision;
+    });
+}
+
+updateBottleStatusBar() {
+    const percentage = (this.collectedBottles / this.allBottles) * 100;
+    this.statusBarBottle.setPercentage(percentage);
+}
+
 
 
     //ganz am anfang wird das canavs gelöscht, elemente werden schnell mit diese methode hinzugefügt dass du nicht sehen kannst das es leer ist
@@ -92,6 +120,8 @@ export class World {
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
         this.addToMap(this.statusBarCoins);
+        this.addToMap(this.statusBarBottle);
+
 
         //Draw() wird immer wieder aufgerufen
         requestAnimationFrame(() => this.draw());
@@ -137,7 +167,7 @@ export class World {
     }
 
 
-    
+
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
