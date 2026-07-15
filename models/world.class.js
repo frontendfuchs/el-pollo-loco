@@ -5,11 +5,15 @@ import { Chicken } from "./chicken.class.js";
 import { ChickenBaby } from "./chicken.baby.class.js";
 import { Cloud } from "./cloud.class.js";
 import { StatusBar } from "./status-bar.class.js";
+import { StatusBarCoins } from "./status-bar-coins.class.js";
 
 export class World {
     statusBar = new StatusBar();
+    statusBarCoins = new StatusBarCoins();
     character = new Character();
     level = level1;
+    collectedCoins = 0;
+    allCoins = this.level.coin.length;
 
     canvas;
     keyboard;
@@ -21,14 +25,19 @@ export class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.allCoins = this.level.coin.length;
         this.setWorld();
         this.draw();
         this.checkCollisions();
     }
 
+
+
     setWorld() {
         this.character.world = this;
     }
+
+
 
     checkCollisions() {
         setInterval(() => {
@@ -37,17 +46,40 @@ export class World {
                     this.character.hit();
                     this.statusBar.setPercentage(this.character.energy);
                 }
-            })
+            });
+            this.collectCoin();
         }, 200);
     }
+
+
+
+    collectCoin() {
+        this.level.coin = this.level.coin.filter((coin) => {
+            const collision = this.character.isColliding(coin);
+
+            if (collision) {
+                this.collectedCoins++;
+                this.updateCoinStatusBar();
+            }
+
+            return !collision;
+        });
+    }
+
+
+
+    updateCoinStatusBar() {
+        const percentage = (this.collectedCoins / this.allCoins) * 100;
+        this.statusBarCoins.setPercentage(percentage);
+    }
+
+
 
     //ganz am anfang wird das canavs gelöscht, elemente werden schnell mit diese methode hinzugefügt dass du nicht sehen kannst das es leer ist
     //es wird schicht für schicht drüber gemalt
     //hintegrundobjekt als erstes weil alle andere objekte drüber liegen als schichten 
     draw() {
-
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
         this.ctx.translate(this.camera_x, 0);
 
         this.addObjectsToMap(this.level.backgroundObjects);
@@ -57,20 +89,22 @@ export class World {
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
 
-        
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
-
+        this.addToMap(this.statusBarCoins);
 
         //Draw() wird immer wieder aufgerufen
         requestAnimationFrame(() => this.draw());
     }
+
+
 
     addObjectsToMap(objects) {
         objects.forEach(o => {
             this.addToMap(o);
         });
     }
+
 
 
     addToMap(mo) {
@@ -102,6 +136,8 @@ export class World {
         mo.x = mo.x * -1;
     }
 
+
+    
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
