@@ -7,25 +7,86 @@ import { ChickenBaby } from "../models/chicken.baby.class.js";
 import { Bottle } from "../models/bottle.class.js";
 import { Coin } from "../models/coin.class.js";
 
+const CHICKEN_AMOUNT = 44;
+const CHICKEN_BABY_AMOUNT = 18;
+const CLOUDS_POSITION = [200,800,600,1600,2400,2700,2900,3000];
+const BOTTLES_X_POSITION = [40, 260, 340, 500, 620, 760, 920, 1080, 1240];
+const BOTTLES_Y_POSITION = 380;
+
+function createEnemies(amount, EnemyClass) {
+    const enemies = [];
+
+    for (let i = 0; i < amount; i++) {
+        enemies.push(new EnemyClass());
+    }
+
+    return enemies;
+}
+
+
+function createClouds(positions) {
+    const clouds = [];
+
+    for (let i = 0; i < positions.length; i++) {
+        const x = positions[i];
+        clouds.push(new Cloud(x));
+    }
+
+    return clouds;
+}
+
+
+function createBottles(positions_x, position_y) {
+    const bottles = [];
+
+    for (let i = 0; i < positions_x.length; i++) {
+        const x = positions_x[i];
+        bottles.push(new Bottle(x, position_y));
+    }
+
+    return bottles;
+}
+
+
 export const level1 = new Level([
-    new Chicken(),
-    new Chicken(),
-    new Chicken(),
-    new Chicken(),
+    // new Chicken(),
+    // new Chicken(),
+    // new Chicken(),
+    // new Chicken(),
 
-    new ChickenBaby(),
-    new ChickenBaby(),
+    // new ChickenBaby(),
+    // new ChickenBaby(),
+    // new ChickenBaby(),
+    // new ChickenBaby(),
+    // new ChickenBaby(),
+    // new ChickenBaby(),
+    // new ChickenBaby(),
+    // new ChickenBaby(),
+    // new ChickenBaby(),
+    // new ChickenBaby(),
+    // new ChickenBaby(),
+    // new ChickenBaby(),
+    // new ChickenBaby(),
+    // new ChickenBaby(),
+    // new ChickenBaby(),
+    // new ChickenBaby(),
+    // new ChickenBaby(),
+    // new ChickenBaby(),
+    
 
-
+    ...createEnemies(CHICKEN_AMOUNT, Chicken),
+    ...createEnemies(CHICKEN_BABY_AMOUNT, ChickenBaby),
     new Endboss(),
 ],
 
     [
 
-        new Cloud(200),
-        new Cloud(800),
-        new Cloud(1600),
-        new Cloud(2400)
+        // new Cloud(200),
+        // new Cloud(800),
+        // new Cloud(1600),
+        // new Cloud(2400),
+
+        ...createClouds(CLOUDS_POSITION)
     ],
 
     [
@@ -54,15 +115,17 @@ export const level1 = new Level([
     ],
 
     [
-        new Bottle(180, 380),
-        new Bottle(260, 380),
-        new Bottle(340, 380),
-        new Bottle(500, 380),
-        new Bottle(620, 380),
-        new Bottle(760, 380),
-        new Bottle(920, 380),
-        new Bottle(1080, 380),
-        new Bottle(1240, 380),
+        // new Bottle(180, 380),
+        // new Bottle(260, 380),
+        // new Bottle(340, 380),
+        // new Bottle(500, 380),
+        // new Bottle(620, 380),
+        // new Bottle(760, 380),
+        // new Bottle(920, 380),
+        // new Bottle(1080, 380),
+        // new Bottle(1240, 380),
+
+        ...createBottles(BOTTLES_X_POSITION, BOTTLES_Y_POSITION)
     ],
 
     [
@@ -90,6 +153,5 @@ export const level1 = new Level([
         new Coin(1500, 220),
         new Coin(1570, 220),
         new Coin(1640, 220),
-
     ]
 );

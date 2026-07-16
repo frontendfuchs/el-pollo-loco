@@ -38,9 +38,6 @@ export class Character extends MovableObject {
     //Das ist die funktion die das Bild austauscht
     animate() {
 
-        // rightKey = this.world.keyboard.RIGHT;
-        // leftKey = this.world.keyboard.LEFT;
-
         setInterval(() => {
             if (!this.isDead()) {
 
