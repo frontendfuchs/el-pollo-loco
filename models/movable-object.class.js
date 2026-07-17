@@ -1,6 +1,5 @@
 import { DrawableObject } from "./drawable-object.class.js";
 
-
 //wir haben eine Schablone erstellt wo wir sagen welche Felder dort drin sein sollen
 export class MovableObject extends DrawableObject {
     speed = 0.15;
@@ -11,6 +10,7 @@ export class MovableObject extends DrawableObject {
     lastHit = 0;
     hasDied = false;
     deathTime = 0;
+    isThrowable = false;
 
     applyGravity() {
         setInterval(() => {
@@ -22,7 +22,12 @@ export class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        return this.y < 160;
+        if (this.isThrowable) {
+            return true;
+        } else {
+            return this.y < 160;
+
+        }
     }
 
     moveRight() {

@@ -7,6 +7,7 @@ import { Cloud } from "./cloud.class.js";
 import { StatusBar } from "./status-bar.class.js";
 import { StatusBarCoins } from "./status-bar-coins.class.js";
 import { StatusBarBottle } from "./status-bar-bottles.class.js";
+import { ThrowableObject } from "./throwable-object.class.js";
 
 export class World {
   statusBar = new StatusBar();
@@ -25,6 +26,7 @@ export class World {
   keyboard;
   ctx;
   camera_x = 0;
+  throwableObjects = [];
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -34,22 +36,37 @@ export class World {
     this.allBottles = this.level.bottles.length;
     this.setWorld();
     this.draw();
-    this.checkCollisions();
+    this.run();
   }
 
   setWorld() {
     this.character.world = this;
   }
 
-  checkCollisions() {
+  run() {
     setInterval(() => {
       this.checkJumpOnEnemy();
       this.checkEnemyAttack();
+      this.checkThrowObjects();
+      this.checkBottleHits();
       this.collectCoin();
       this.collectBottle();
       this.removeDeadEnemy();
     }, 50);
   }
+
+  checkThrowObjects() {
+    if (this.keyboard.D && this.collectedBottles > 0) {
+        let bottle = new ThrowableObject();
+        bottle.throw(this.character.x, this.character.y);
+        this.throwableObjects.push(bottle);
+
+        this.collectedBottles--;
+        this.updateBottleStatusBar();
+
+        this.keyboard.D = false;
+    }
+}
 
   checkJumpOnEnemy() {
     this.level.enemies.forEach((enemy) => {
@@ -89,6 +106,21 @@ export class World {
       }
     });
   }
+
+  checkBottleHits() {
+    this.throwableObjects = this.throwableObjects.filter((bottle) => {
+        let hit = false;
+
+        this.level.enemies.forEach((enemy) => {
+            if (!enemy.isDead() && bottle.isColliding(enemy)) {
+                enemy.die();
+                hit = true;
+            }
+        });
+
+        return !hit;
+    });
+}
 
   removeDeadEnemy() {
     this.level.enemies = this.level.enemies.filter((enemy) => {
@@ -152,6 +184,7 @@ export class World {
     this.addObjectsToMap(this.level.coin);
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.clouds);
+    this.addObjectsToMap(this.throwableObjects);
 
     this.ctx.translate(-this.camera_x, 0);
     // ----- space for fixed objects ------

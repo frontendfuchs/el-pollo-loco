@@ -7,8 +7,8 @@ import { ChickenBaby } from "../models/chicken.baby.class.js";
 import { Bottle } from "../models/bottle.class.js";
 import { Coin } from "../models/coin.class.js";
 
-const CHICKEN_AMOUNT = 44;
-const CHICKEN_BABY_AMOUNT = 18;
+const CHICKEN_AMOUNT = 6;
+const CHICKEN_BABY_AMOUNT = 3;
 const CLOUDS_POSITION = [200,800,600,1600,2400,2700,2900,3000];
 const BOTTLES_X_POSITION = [40, 260, 340, 500, 620, 760, 920, 1080, 1240];
 const BOTTLES_Y_POSITION = 380;
