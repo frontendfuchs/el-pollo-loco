@@ -10,6 +10,8 @@ export class Character extends MovableObject {
     IMAGES_JUMPING = ImageHelper.CHARACTER.IMAGES_JUMPING;
     IMAGES_DEAD = ImageHelper.CHARACTER.IMAGES_DEAD;
     IMAGES_HURT = ImageHelper.CHARACTER.IMAGES_HURT;
+    IMAGES_IDLE = ImageHelper.CHARACTER.IMAGES_IDLE;
+    IMAGES_LONG_IDLE = ImageHelper.CHARACTER.IMAGES_LONG_IDLE;
     speed = 5;
     pepeIsDead = false;
     offset = {
@@ -22,10 +24,13 @@ export class Character extends MovableObject {
     rY;
     rW;
     rH;
+    lastMove = new Date().getTime();
 
 
     constructor() {
         super().loadImage('assets/img/2_character_pepe/2_walk/W-21.png');
+        this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_LONG_IDLE);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
@@ -37,9 +42,12 @@ export class Character extends MovableObject {
 
     //Das ist die funktion die das Bild austauscht
     animate() {
-
+        // 1. Intervall: BEWEGUNG
         setInterval(() => {
             if (!this.isDead()) {
+                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.SPACE || this.world.keyboard.D) {
+                    this.lastMove = new Date().getTime();
+                }
 
                 if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                     this.moveRight();
@@ -58,31 +66,41 @@ export class Character extends MovableObject {
             }
         }, 1000 / 60);
 
-
+        // 2. Intervall: ANIMATIONEN (Walk, Jump, Hurt, Dead)
         setInterval(() => {
-
             if (this.isDead() && !this.pepeIsDead) {
                 this.playAnimationDead(this.IMAGES_DEAD);
                 if (this.gameOver()) {
                     this.pepeIsDead = true;
                     console.log("Game Over");
-
                 }
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else if (!this.isDead()) {
-
-
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                    //Walk animation
                     this.playAnimation(this.IMAGES_WALKING);
-                } else {
-                    this.img = this.imageCache[this.IMAGES_WALKING[5]];
                 }
             }
         }, 50);
+
+        // 3. Intervall: IDLE ANIMATIONEN
+        setInterval(() => {
+            let isMoving = this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
+            
+            if (!this.isDead() && !this.isHurt() && !this.isAboveGround() && !isMoving) {
+                
+                let timePassed = new Date().getTime() - this.lastMove;
+                timePassed = timePassed / 1000;
+
+                if (timePassed >= 5) {
+                    this.playAnimation(this.IMAGES_LONG_IDLE);
+                } else {
+                    this.playAnimation(this.IMAGES_IDLE);
+                }
+            }
+        }, 200);
     }
 
 }
