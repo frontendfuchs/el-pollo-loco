@@ -62,13 +62,26 @@ export class World {
 
 
   checkEndbossContact() {
-    if (this.character.x > 2000) { 
-      this.level.enemies.forEach((enemy) => {
-        if (enemy instanceof Endboss) {
+    this.level.enemies.forEach((enemy) => {
+      if (enemy instanceof Endboss) {
+        
+        // 1. ALERT:
+        if (this.character.x > 1500 && this.character.x <= 2100 && !enemy.hasFirstContact) {
+          enemy.isAlert = true;
+        }
+        // 2. WALKING:
+        if (this.character.x > 2100) { 
+          enemy.isAlert = false;
           enemy.hasFirstContact = true;
         }
-      });
-    }
+        // 3. ATTACK:
+        if (this.character.isColliding(enemy)) {
+          enemy.isAttacking = true;
+        } else {
+          enemy.isAttacking = false;
+        }
+      }
+    });
   }
 
   checkThrowObjects() {

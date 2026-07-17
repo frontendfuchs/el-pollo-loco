@@ -89,9 +89,10 @@ export class ImageHelper {
             'assets/img/4_enemie_boss_chicken/3_attack/G20.png',
         ],
         IMAGES_HURT:[
-            'assets/img/4_enemie_boss_chicken/3_attack/G21.png',
-            'assets/img/4_enemie_boss_chicken/3_attack/G22.png',
-            'assets/img/4_enemie_boss_chicken/3_attack/G23.png',
+            'assets/img/4_enemie_boss_chicken/4_hurt/G21.png',
+            'assets/img/4_enemie_boss_chicken/4_hurt/G22.png',
+            'assets/img/4_enemie_boss_chicken/4_hurt/G23.png',
+            
         ],
 
         IMAGEAS_DEAD:[
