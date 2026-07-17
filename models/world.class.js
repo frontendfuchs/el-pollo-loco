@@ -8,11 +8,15 @@ import { StatusBar } from "./status-bar.class.js";
 import { StatusBarCoins } from "./status-bar-coins.class.js";
 import { StatusBarBottle } from "./status-bar-bottles.class.js";
 import { ThrowableObject } from "./throwable-object.class.js";
+import { StatusBarEndBoss } from "./status-bar-endbossclass.js";
+import { Endboss } from "./endboss.class.js";
+
 
 export class World {
   statusBar = new StatusBar();
   statusBarCoins = new StatusBarCoins();
   statusBarBottle = new StatusBarBottle();
+  statusBarEndBoss = new StatusBarEndBoss();
   character = new Character();
   level = level1;
 
@@ -52,7 +56,19 @@ export class World {
       this.collectCoin();
       this.collectBottle();
       this.removeDeadEnemy();
+      this.checkEndbossContact(); 
     }, 50);
+  }
+
+
+  checkEndbossContact() {
+    if (this.character.x > 2000) { 
+      this.level.enemies.forEach((enemy) => {
+        if (enemy instanceof Endboss) {
+          enemy.hasFirstContact = true;
+        }
+      });
+    }
   }
 
   checkThrowObjects() {
@@ -108,19 +124,20 @@ export class World {
   }
 
   checkBottleHits() {
-    this.throwableObjects = this.throwableObjects.filter((bottle) => {
-        let hit = false;
-
-        this.level.enemies.forEach((enemy) => {
-            if (!enemy.isDead() && bottle.isColliding(enemy)) {
-                enemy.die();
-                hit = true;
+    this.throwableObjects.forEach((bottle) => {
+      this.level.enemies.forEach((enemy) => {
+          
+        if (!enemy.isDead() && !bottle.hasHit && bottle.isColliding(enemy)) {
+            enemy.hit(); 
+            if (enemy instanceof Endboss) {
+                this.statusBarEndBoss.setPercentage(enemy.energy);
+            } else {
+                enemy.die(); 
             }
-        });
-
-        return !hit;
+        }
+      });
     });
-}
+  }
 
   removeDeadEnemy() {
     this.level.enemies = this.level.enemies.filter((enemy) => {
@@ -191,6 +208,7 @@ export class World {
     this.addToMap(this.statusBar);
     this.addToMap(this.statusBarCoins);
     this.addToMap(this.statusBarBottle);
+    this.addToMap(this.statusBarEndBoss);
 
     //Draw() wird immer wieder aufgerufen
     requestAnimationFrame(() => this.draw());

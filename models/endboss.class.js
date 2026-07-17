@@ -6,20 +6,33 @@ export class Endboss extends MovableObject {
     height = 400;
     width = 250;
     y = 60;
+    speed = 2; 
+    hasFirstContact = false;
 
-    IMAGES_WALKING = ImageHelper.ENDBOSS.IMAGES_WALKING;
+    IMAGES_WALKING_ENDBOSS = ImageHelper.ENDBOSS.IMAGES_WALKING;
 
-    constructor(){
-        super().loadImage(this.IMAGES_WALKING[0])
-        this.loadImages(this.IMAGES_WALKING)
+    constructor() {
+        super();
+        this.loadImage(this.IMAGES_WALKING_ENDBOSS[0]);
+        this.loadImages(this.IMAGES_WALKING_ENDBOSS);
         this.x = 2500;
         this.animate();
     }
 
-    animate(){
+    animate() {
+
         setInterval(() => {
-        this.playAnimation(this.IMAGES_WALKING);
-    }, 200);
+            if (this.hasFirstContact) {
+                this.playAnimation(this.IMAGES_WALKING_ENDBOSS);
+            }
+        }, 200);
+
+
+        setInterval(() => {
+            if (this.hasFirstContact) {
+                this.x -= this.speed;
+            }
+        }, 1000 / 60);
     }
 
 }
