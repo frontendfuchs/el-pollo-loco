@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,11 +8,20 @@
     <link rel="stylesheet" href="style.css">
     <script type="module" src="./js/game.js"></script>
 </head>
+
 <body>
-    <h1>El pollo loco</h1>
+    <!-- <h1>El pollo loco</h1> -->
+    <img id="title-img" src="./assets/img/10_images/title_el_pollo_locco_2.png" alt="El Pollo Locco Title">
+    <div class="game-container">
+        <!-- Der Startbildschirm -->
+        <div id="start-screen">
+            <img src="assets/img/9_intro_outro_screens/start/startscreen_1.png" alt="El Pollo Loco Start">
+            <button class="start-btn">START</button>
+        </div>
 
-    <canvas id="canvas" width="720" height="480">
-
-    </canvas>
+        <!-- Dein bestehendes Canvas -->
+        <canvas id="canvas" width="720" height="480"></canvas>
+    </div>
 </body>
+
 </html>

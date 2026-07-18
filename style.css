@@ -1,9 +1,97 @@
+@font-face {
+    font-family: 'zabras';
+    src:url('./assets/fonts/zabars.ttf') format('truetype');
+}
+
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+
+    height: 100dvh;
+    margin: 0;
+
+    background-image: url('assets/img/10_images/canvas_bg.jpg');
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat;
+    font-family: 'zabras', Arial, Helvetica, sans-serif;
+    
 }
 
 canvas {
     background-color: black;
+    box-shadow: 0px 20px 30px rgba(0,0,0,0.5);
+}
+
+
+.game-container {
+    position: relative;
+    width: 720px;
+    height: 480px;
+    border: 2px solid white;
+    border-radius: 10px; 
+    box-shadow: 0px 20px 30px rgba(0,0,0,0.5); 
+    overflow: hidden; /* für die runde ecken */
+}
+
+#title-img {
+    display: none;
+    margin-bottom: 30px; /*Abstand zum Canvas */
+}
+
+.show-title {
+    display: block !important;
+    animation: popUp 0.5s ease-out forwards;
+}
+
+
+
+canvas {
+    background-color: black;
+    /* display: block; */
+}
+
+/* Das Startbildschirm-Overlay */
+#start-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    z-index: 10;
+}
+
+/* Das Bild im Startbildschirm */
+#start-screen img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+/* Start Button */
+.start-btn {
+    z-index: 2;
+    padding: 15px 30px;
+    font-size: 42px;
+    cursor: pointer;
+    background-color: transparent; 
+    border: none;
+    border-radius: 5px;
+    font-family: 'zabras', Arial, Helvetica, sans-serif;
+    color: brown;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+    transition: transform 0.2s ease-in-out;
+}
+
+.start-btn:hover {
+    transform: scale(1.2); /* Button auf 120% vergrößern*/
 }

@@ -5,19 +5,37 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 
-function init(){
-    canvas =document.getElementById('canvas');
-    world = new World(canvas, keyboard);
-    window.world = world;
-    window.keyboard = keyboard;
-
-    console.log('My Character is', world.character); 
+function startGame() {
+    // 1. Startbildschirm ausblenden
+    document.getElementById('start-screen').style.display = 'none';
+    
+    // 2. NEU: Titel-Bild holen und die Pop-up Klasse hinzufügen
+    let titleImg = document.getElementById('title-img');
+    if (titleImg) {
+        titleImg.classList.add('show-title');
+    }
+    init(); 
 }
 
-init();
+function init(){
+    canvas = document.getElementById('canvas');
+    world = new World(canvas, keyboard);
+}
+
+
+// --- EVENT LISTENER ---
+
+// Klick-Event für den Start-Button
+const startBtn = document.querySelector('.start-btn');
+if (startBtn) {
+    startBtn.addEventListener('click', startGame);
+}
+
+
+
+// --- TASTATUR EVENTS ---
 
 window.addEventListener('keydown', (event) => {
-
     if (event.code == 'ArrowLeft') {
         keyboard.LEFT = true;
     } 
@@ -42,7 +60,6 @@ window.addEventListener('keydown', (event) => {
 });
 
 window.addEventListener('keyup', (event) => {
-    
     if (event.code == 'ArrowLeft') {
         keyboard.LEFT = false;
     } 
@@ -64,4 +81,3 @@ window.addEventListener('keyup', (event) => {
     // console.log(keyboard.LEFT);
     
 });
-
