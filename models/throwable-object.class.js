@@ -1,5 +1,6 @@
 import { ImageHelper } from "../helper_classes/image-helper.js";
 import { MovableObject } from "./movable-object.class.js";
+import { IntervalHub } from "../helper_classes/intervalhub-helper.js";
 
 export class ThrowableObject extends MovableObject {
     IMAGES_ROTATION = ImageHelper.BOTTLE.IMAGES_ROTATION;
@@ -22,14 +23,14 @@ export class ThrowableObject extends MovableObject {
         this.speedY = 20;
         this.applyGravity();
         this.animate();
-        setInterval( () => {
+        IntervalHub.startInterval( () => {
             this.x += 10;
         }, 25);
 
     }
 
      animate() {
-        setInterval(() => {
+        IntervalHub.startInterval(() => {
             this.playAnimation(this.IMAGES_ROTATION);
         }, 300);
     }

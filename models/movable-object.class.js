@@ -1,4 +1,5 @@
 import { DrawableObject } from "./drawable-object.class.js";
+import { IntervalHub } from "../helper_classes/intervalhub-helper.js";
 
 //wir haben eine Schablone erstellt wo wir sagen welche Felder dort drin sein sollen
 export class MovableObject extends DrawableObject {
@@ -13,7 +14,7 @@ export class MovableObject extends DrawableObject {
     isThrowable = false;
 
     applyGravity() {
-        setInterval(() => {
+        IntervalHub.startInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;

@@ -1,5 +1,6 @@
 import { Keyboard } from '../models/keyboard.class.js';
 import { World } from '../models/world.class.js';
+import { IntervalHub } from '../helper_classes/intervalhub-helper.js';
 
 let canvas;
 let world;
@@ -40,10 +41,12 @@ function startGame() {
 }
 
 function restartGame() {
+    IntervalHub.stopAllIntervals();
     location.reload();
 }
 
 function showGameOverScreen() {
+    IntervalHub.stopAllIntervals();
     if (elements.gameOverScreen) {
         elements.gameOverScreen.classList.add('show');
     }

@@ -1,5 +1,6 @@
 import { BackgroundObject } from "./background-object.class.js";
 import { level1 } from "../levels/level1.js";
+import { IntervalHub } from "../helper_classes/intervalhub-helper.js";
 import { Character } from "./character.class.js";
 import { Chicken } from "./chicken.class.js";
 import { ChickenBaby } from "./chicken.baby.class.js";
@@ -51,7 +52,7 @@ export class World {
   }
 
   run() {
-    setInterval(() => {
+    IntervalHub.startInterval(() => {
       this.checkJumpOnEnemy();
       this.checkEnemyAttack();
       this.checkThrowObjects();
