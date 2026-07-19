@@ -31,11 +31,14 @@ export class World {
   ctx;
   camera_x = 0;
   throwableObjects = [];
+  onGameOver;
+  gameOver = false;
 
-  constructor(canvas, keyboard) {
+  constructor(canvas, keyboard, onGameOver) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
+    this.onGameOver = onGameOver;
     this.allCoins = this.level.coin.length;
     this.allBottles = this.level.bottles.length;
     this.setWorld();
@@ -56,9 +59,20 @@ export class World {
       this.collectCoin();
       this.collectBottle();
       this.removeDeadEnemy();
-      this.checkEndbossContact(); 
+      this.checkEndbossContact();
+      this.checkGameOver();
     }, 50);
   }
+
+  checkGameOver() {
+        if (this.character.isDead() && !this.gameOver) {
+            this.gameOver = true;
+
+            if (this.onGameOver) {
+                this.onGameOver();
+            }
+        }
+    }
 
 
   checkEndbossContact() {
