@@ -1,5 +1,6 @@
 import { ImageHelper } from "../helper_classes/image-helper.js";
 import { MovableObject } from "./movable-object.class.js";
+import { IntervalHub } from "../helper_classes/intervalhub-helper.js";
 
 export class Endboss extends MovableObject {
 
@@ -31,7 +32,7 @@ export class Endboss extends MovableObject {
 
     animate() {
 
-        setInterval(() => {
+        IntervalHub.startInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD_ENDBOSS);
             } else if (this.isHurt()) {
@@ -45,7 +46,7 @@ export class Endboss extends MovableObject {
             }
         }, 200);
 
-        setInterval(() => {
+        IntervalHub.startInterval(() => {
             if (this.hasFirstContact && !this.isDead() && !this.isAttacking) {
                 this.x -= this.speed;
             }

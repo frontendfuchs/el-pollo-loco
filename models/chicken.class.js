@@ -1,5 +1,6 @@
 import { ImageHelper } from "../helper_classes/image-helper.js";
 import { MovableObject } from "./movable-object.class.js";
+import { IntervalHub } from "../helper_classes/intervalhub-helper.js";
 
 export class Chicken extends MovableObject {
     y = 370;
@@ -26,13 +27,13 @@ export class Chicken extends MovableObject {
 
     //Das ist die funktion die das Bild austauscht
 animate() {
-    setInterval(() => {
+    IntervalHub.startInterval(() => {
         if (!this.isDead()) {
             this.moveLeft();
         }
     }, 1000 / 60);
 
-    setInterval(() => {
+    IntervalHub.startInterval(() => {
         if (this.isDead()) {
             this.playAnimationDead(this.IMAGES_DEAD);
         } else {

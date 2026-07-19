@@ -1,4 +1,5 @@
 import { MovableObject } from "./movable-object.class.js";
+import { IntervalHub } from "../helper_classes/intervalhub-helper.js";
 
 export class Cloud extends MovableObject {
     y = 30;
@@ -14,7 +15,7 @@ export class Cloud extends MovableObject {
     }
 
     animate() {
-    setInterval(() => {
+    IntervalHub.startInterval(() => {
         this.moveLeft();
     }, 1000 / 60);
 }

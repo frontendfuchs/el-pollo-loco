@@ -16,12 +16,14 @@ const elements = {
     dialog: document.getElementById('info-dialog'),
     closeBtn: document.getElementById('close-btn'),
     gameOverScreen: document.getElementById('game-over-screen'),
-    restartBtn: document.getElementById('restart-btn')
+    restartBtn: document.getElementById('restart-btn'),
+    winScreen: document.getElementById('win-screen'),
+    restartBtnWin: document.getElementById('restart-btn-win')
 };
 
 function init() {
     canvas = document.getElementById('canvas');
-    world = new World(canvas, keyboard, showGameOverScreen);
+    world = new World(canvas, keyboard, showGameOverScreen, showWinScreen);
 }
 
 function startGame() {
@@ -52,6 +54,13 @@ function showGameOverScreen() {
     }
 }
 
+function showWinScreen() {
+    if (elements.winScreen) {
+        elements.winScreen.classList.add('show');
+    }
+}
+
+
 
 // Klick-Event für den Start-Button
 if (elements.startBtn) {
@@ -61,6 +70,11 @@ if (elements.startBtn) {
 // Restart-Button im Game-Over-Screen
 if (elements.restartBtn) {
     elements.restartBtn.addEventListener('click', restartGame);
+}
+
+//Restart-Button you Win Screen
+if (elements.restartBtnWin) {
+    elements.restartBtnWin.addEventListener('click', restartGame);
 }
 
 

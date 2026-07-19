@@ -188,7 +188,7 @@ dialog::backdrop {
 }
 
 .game-over-screen img {
-    width: 420px;
+    width: 300px;
     height: auto;
 }
 
@@ -205,4 +205,26 @@ dialog::backdrop {
 
 .restart-btn:hover {
     background-color: #ffda66;
+}
+
+.win-screen {
+    position: absolute;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 24px;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 20;
+}
+
+.win-screen.show {
+    display: flex;
+}
+
+.win-screen img {
+    width: 320px;
+    max-width: 80%;
+    height: auto;
 }

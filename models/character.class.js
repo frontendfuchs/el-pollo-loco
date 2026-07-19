@@ -1,5 +1,6 @@
 import { ImageHelper } from "../helper_classes/image-helper.js";
 import { MovableObject } from "./movable-object.class.js";
+import { IntervalHub } from "../helper_classes/intervalhub-helper.js";
 
 export class Character extends MovableObject {
 
@@ -43,7 +44,7 @@ export class Character extends MovableObject {
     //Das ist die funktion die das Bild austauscht
     animate() {
         // 1. Intervall: BEWEGUNG
-        setInterval(() => {
+        IntervalHub.startInterval(() => {
             if (!this.isDead()) {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.SPACE || this.world.keyboard.D) {
                     this.lastMove = new Date().getTime();
@@ -67,7 +68,7 @@ export class Character extends MovableObject {
         }, 1000 / 60);
 
         // 2. Intervall: ANIMATIONEN (Walk, Jump, Hurt, Dead)
-        setInterval(() => {
+        IntervalHub.startInterval(() => {
             if (this.isDead() && !this.pepeIsDead) {
                 this.playAnimationDead(this.IMAGES_DEAD);
                 if (this.gameOver()) {
@@ -86,7 +87,7 @@ export class Character extends MovableObject {
         }, 50);
 
         // 3. Intervall: IDLE ANIMATIONEN
-        setInterval(() => {
+        IntervalHub.startInterval(() => {
             let isMoving = this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
             
             if (!this.isDead() && !this.isHurt() && !this.isAboveGround() && !isMoving) {

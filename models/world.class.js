@@ -33,59 +33,80 @@ export class World {
   camera_x = 0;
   throwableObjects = [];
   onGameOver;
+  onGameWin;
   gameOver = false;
+  gameWon = false;
 
-  constructor(canvas, keyboard, onGameOver) {
+  constructor(canvas, keyboard, onGameOver, onGameWin) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
     this.onGameOver = onGameOver;
+    this.onGameWin = onGameWin;
     this.allCoins = this.level.coin.length;
     this.allBottles = this.level.bottles.length;
     this.setWorld();
     this.draw();
     this.run();
   }
-
   setWorld() {
     this.character.world = this;
   }
 
-  run() {
+run() {
     IntervalHub.startInterval(() => {
-      this.checkJumpOnEnemy();
-      this.checkEnemyAttack();
-      this.checkThrowObjects();
-      this.checkBottleHits();
-      this.collectCoin();
-      this.collectBottle();
-      this.removeDeadEnemy();
-      this.checkEndbossContact();
-      this.checkGameOver();
+        if (this.gameOver || this.gameWon) {
+            return;
+        }
+
+        this.checkJumpOnEnemy();
+        this.checkEnemyAttack();
+        this.checkThrowObjects();
+        this.checkBottleHits();
+        this.collectCoin();
+        this.collectBottle();
+        this.checkEndbossContact();
+        this.checkGameOver();
+        this.checkGameWin();
+        this.removeDeadEnemy();
     }, 50);
-  }
+}
 
   checkGameOver() {
-        if (this.character.isDead() && !this.gameOver) {
-            this.gameOver = true;
+    if (this.character.isDead() && !this.gameOver) {
+      this.gameOver = true;
+      IntervalHub.stopAllIntervals();
 
-            if (this.onGameOver) {
-                this.onGameOver();
+      if (this.onGameOver) {
+        this.onGameOver();
+      }
+    }
+  }
+
+  checkGameWin() {
+    this.level.enemies.forEach((enemy) => {
+        if (enemy instanceof Endboss && enemy.isDead() && !this.gameWon) {
+            this.gameWon = true;
+            IntervalHub.stopAllIntervals();
+
+            if (this.onGameWin) {
+                this.onGameWin();
             }
         }
-    }
+    });
+}
 
 
   checkEndbossContact() {
     this.level.enemies.forEach((enemy) => {
       if (enemy instanceof Endboss) {
-        
+
         // 1. ALERT:
         if (this.character.x > 1500 && this.character.x <= 2100 && !enemy.hasFirstContact) {
           enemy.isAlert = true;
         }
         // 2. WALKING:
-        if (this.character.x > 2100) { 
+        if (this.character.x > 2100) {
           enemy.isAlert = false;
           enemy.hasFirstContact = true;
         }
@@ -101,16 +122,16 @@ export class World {
 
   checkThrowObjects() {
     if (this.keyboard.D && this.collectedBottles > 0) {
-        let bottle = new ThrowableObject();
-        bottle.throw(this.character.x, this.character.y);
-        this.throwableObjects.push(bottle);
+      let bottle = new ThrowableObject();
+      bottle.throw(this.character.x, this.character.y);
+      this.throwableObjects.push(bottle);
 
-        this.collectedBottles--;
-        this.updateBottleStatusBar();
+      this.collectedBottles--;
+      this.updateBottleStatusBar();
 
-        this.keyboard.D = false;
+      this.keyboard.D = false;
     }
-}
+  }
 
   checkJumpOnEnemy() {
     this.level.enemies.forEach((enemy) => {
@@ -154,14 +175,14 @@ export class World {
   checkBottleHits() {
     this.throwableObjects.forEach((bottle) => {
       this.level.enemies.forEach((enemy) => {
-          
+
         if (!enemy.isDead() && !bottle.hasHit && bottle.isColliding(enemy)) {
-            enemy.hit(); 
-            if (enemy instanceof Endboss) {
-                this.statusBarEndBoss.setPercentage(enemy.energy);
-            } else {
-                enemy.die(); 
-            }
+          enemy.hit();
+          if (enemy instanceof Endboss) {
+            this.statusBarEndBoss.setPercentage(enemy.energy);
+          } else {
+            enemy.die();
+          }
         }
       });
     });
