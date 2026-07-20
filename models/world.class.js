@@ -53,24 +53,24 @@ export class World {
     this.character.world = this;
   }
 
-run() {
+  run() {
     IntervalHub.startInterval(() => {
-        if (this.gameOver || this.gameWin) {
-            return;
-        }
+      if (this.gameOver || this.gameWin) {
+        return;
+      }
 
-        this.checkJumpOnEnemy();
-        this.checkEnemyAttack();
-        this.checkThrowObjects();
-        this.checkBottleHits();
-        this.collectCoin();
-        this.collectBottle();
-        this.checkEndbossContact();
-        this.checkGameOver();
-        this.checkGameWin();
-        this.removeDeadEnemy();
-    }, 50);
-}
+      this.checkJumpOnEnemy();
+      this.checkEnemyAttack();
+      this.checkThrowObjects();
+      this.checkBottleHits();
+      this.collectCoin();
+      this.collectBottle();
+      this.checkEndbossContact();
+      this.checkGameOver();
+      this.checkGameWin();
+      this.removeDeadEnemy();
+    }, 200);
+  }
 
   checkGameOver() {
     if (this.character.isDead() && this.character.checkGameStatus()) {
@@ -85,16 +85,16 @@ run() {
 
   checkGameWin() {
     this.level.enemies.forEach((enemy) => {
-        if (enemy instanceof Endboss && enemy.isDead() && enemy.checkGameStatus()) {
-            this.gameWin = true;
-            IntervalHub.stopAllIntervals();
+      if (enemy instanceof Endboss && enemy.isDead() && enemy.checkGameStatus()) {
+        this.gameWin = true;
+        IntervalHub.stopAllIntervals();
 
-            if (this.onGameWin) {
-                this.onGameWin();
-            }
+        if (this.onGameWin) {
+          this.onGameWin();
         }
+      }
     });
-}
+  }
 
 
   checkEndbossContact() {
@@ -138,16 +138,15 @@ run() {
       if (enemy.isDead()) {
         return;
       }
-
-      const characterJump = this.character.y < 160;
-      const characterPos = this.character.y + this.character.height;
-      const enemyPos = enemy.y;
+      const characterJump = this.character.isAboveGround();
+      const characterPos = this.character.rY + this.character.rH - (2 * enemy.offset.top);
+      const enemyPos = enemy.rY + enemy.offset.top;
 
       if (
         !this.character.isDead() &&
         this.character.isColliding(enemy) &&
         (enemy instanceof ChickenBaby ||
-          (characterJump && characterPos > enemyPos))
+          (characterJump && characterPos <= enemyPos))
       ) {
         enemy.die();
         this.character.speedY = 5;
@@ -190,9 +189,9 @@ run() {
 
   removeDeadEnemy() {
     this.level.enemies = this.level.enemies.filter((enemy) => {
-       if (enemy instanceof Endboss) {
-      return true;
-    }
+      if (enemy instanceof Endboss) {
+        return true;
+      }
       if (!enemy.isDead()) {
         return true;
       }
@@ -279,13 +278,13 @@ run() {
 
     mo.draw(this.ctx);
 
-    if (
-      mo instanceof Character ||
-      mo instanceof Chicken ||
-      mo instanceof ChickenBaby
-    ) {
-      mo.drawFrame(this.ctx);
-    }
+    // if (
+    //   mo instanceof Character ||
+    //   mo instanceof Chicken ||
+    //   mo instanceof ChickenBaby
+    // ) {
+    //   mo.drawFrame(this.ctx);
+    // }
 
     if (mo.otherDirection) {
       this.flipImageBack(mo);
