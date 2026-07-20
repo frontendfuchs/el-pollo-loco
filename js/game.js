@@ -48,7 +48,6 @@ function restartGame() {
 }
 
 function showGameOverScreen() {
-    IntervalHub.stopAllIntervals();
     if (elements.gameOverScreen) {
         elements.gameOverScreen.classList.add('show');
     }
