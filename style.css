@@ -1,6 +1,23 @@
+/* #region Fonts */
 @font-face {
     font-family: 'zabras';
     src: url('./assets/fonts/zabars.ttf') format('truetype');
+}
+/* #endregion */
+
+/* #region Base-structure */
+* {
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    font-size: inherit;
+    color: inherit;
+    font-family: inherit;
+    background: initial;
+    border: initial;
 }
 
 body {
@@ -8,24 +25,27 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     height: 100dvh;
-    margin: 0;
-
     background-image: url('assets/img/10_images/canvas_bg.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     font-family: 'zabras', Arial, Helvetica, sans-serif;
-
-
 }
 
 canvas {
+    display: block;
     background-color: black;
     box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.5);
 }
+/* #endregion */
 
+/* #region Layout */
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 .game-container {
     position: relative;
@@ -34,7 +54,7 @@ canvas {
     border: 2px solid white;
     border-radius: 30px;
     box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.5);
-    overflow: hidden;
+    overflow: hidden; /*um die ecken von canvas verstecken zu können*/
 }
 
 #title-img {
@@ -42,112 +62,11 @@ canvas {
     margin-bottom: 30px;
 }
 
-.show-title {
-    display: block !important;
+#title-img.show-title {
+    display: block;
     animation: popUp 0.5s ease-out forwards;
 }
 
-
-/* Das Startbildschirm */
-#start-screen {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    z-index: 10;
-}
-
-/* Hintergrundbild */
-.bg-img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1;
-}
-
-/* Container Buttons */
-.button-container {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 20px;
-    margin-top: 20px;
-    z-index: 2;
-}
-
-/* Buttons */
-.start-btn,
-.info-btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 80px;
-    height: 40px;
-
-    padding: 12px;
-    font-size: 24px;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    background-color:  rgb(255, 209, 6);
-    color: black;
-    font-weight: bold;
-}
-
-.start-btn:hover,
-.info-btn:hover {
-    transform: scale(1.1);
-}
-
-/* Info-Box */
-.dialog-content {
-    position: relative;
-    background-color: rgba(255, 255, 255, 0.753);
-    border: 4px solid rgb(255, 209, 6);
-    border-radius: 15px;
-    padding: 20px 40px;
-    text-align: center;
-    color: black;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-dialog::backdrop {
-    background-color: rgba(3, 3, 3, 0.329);
-}
-
-.dialog-content p {
-    font-size: 20px;
-    margin: 10px 0;
-}
-
-/* Close-Button */
-#close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    padding: 5px 10px;
-    font-size: 16px;
-    color: black;
-    background-color: rgb(255, 209, 6);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-}
-
-#close-btn:hover {
-    transform: scale(1.2);
-}
-
-/* Game-Description */
 .game-description {
     position: absolute;
     top: 20px;
@@ -160,35 +79,166 @@ dialog::backdrop {
 }
 
 .game-description p {
-    margin: 0;
     font-size: 40px;
     line-height: 1.4;
 }
 
-/* Game-Over */
-
-.game-container {
-    position: relative;
+.rotate-device {
+    display: none;
+    width: 100vw;
+    height: 100dvh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
 }
 
-.game-over-screen {
+.rotate-device p {
+    padding: 12px 18px;
+    font-size: clamp(32px, 7dvw, 56px);
+    color: rgb(255, 209, 6);
+    background: rgba(0, 0, 0, 0.45);
+    border-radius: 14px;
+}
+
+.rotate-device img {
+    display: block;
+    width: clamp(130px, 40dvw, 240px);
+    height: auto;
+}
+/* #endregion */
+
+/* #region Start Screen */
+#start-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    z-index: 10;
+}
+
+.bg-img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.button-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin-top: 20px;
+    z-index: 2;
+}
+
+.start-btn,
+.info-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 40px;
+    padding: 12px;
+    font-size: 24px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    background-color: rgb(255, 209, 6);
+    color: black;
+    font-weight: bold;
+}
+
+.start-btn:hover,
+.info-btn:hover {
+    transform: scale(1.1);
+}
+/* #endregion */
+
+/* #region Dialog */
+.dialog-content {
+    position: relative;
+    margin: auto;
+    padding: 20px 40px;
+    border: 4px solid rgb(255, 209, 6);
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.753);
+    color: black;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+dialog::backdrop {
+    background-color: rgba(27, 27, 27, 0.459);
+}
+
+.dialog-content p {
+    margin: 10px 0;
+    font-size: clamp(16px, 1.8dvw, 20px);
+}
+
+#close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    padding: 5px 10px;
+    font-size: 16px;
+    color: black;
+    background-color: rgb(255, 209, 6);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.1s ease-in-out;
+}
+
+#close-btn:hover {
+    transform: scale(1.1);
+}
+/* #endregion */
+
+/* #region End Screens */
+.game-over-screen,
+.win-screen {
     position: absolute;
     inset: 0;
     display: none;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 34px;
     background: rgba(0, 0, 0, 0.6);
     z-index: 20;
 }
 
-.game-over-screen.show {
+.game-over-screen {
+    gap: 34px;
+}
+
+.win-screen {
+    gap: 24px;
+}
+
+.game-over-screen.show,
+.win-screen.show {
     display: flex;
 }
 
 .game-over-screen img {
     width: 300px;
+    height: auto;
+}
+
+.win-screen img {
+    width: 320px;
+    max-width: 80%;
     height: auto;
 }
 
@@ -198,33 +248,58 @@ dialog::backdrop {
     border: none;
     border-radius: 12px;
     cursor: pointer;
-    background-color:  rgb(255, 209, 6);
+    background-color: rgb(255, 209, 6);
     color: black;
     font-weight: bold;
+    transition: transform 0.1s ease-in-out;
 }
 
 .restart-btn:hover {
-    background-color: #ffda66;
+    transform: scale(1.1);
+}
+/* #endregion */
+
+/* #region Media Queries */
+@media (max-width: 1024px) and (pointer: coarse) and (orientation: portrait) {
+    header,
+    .game-container {
+        display: none;
+    }
+
+    .rotate-device {
+        display: flex;
+    }
+
+    .bg-img {
+        object-fit: contain;
+    }
 }
 
-.win-screen {
-    position: absolute;
-    inset: 0;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 24px;
-    background: rgba(0, 0, 0, 0.6);
-    z-index: 20;
-}
+@media (max-width: 1023px) and (pointer: coarse) and (orientation: landscape) {
+    .rotate-device {
+        display: none;
+    }
 
-.win-screen.show {
-    display: flex;
-}
+    header {
+        display: none;
+    }
 
-.win-screen img {
-    width: 320px;
-    max-width: 80%;
-    height: auto;
+    .game-container {
+        width: 100dvw;
+        height: 100dvh;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    canvas {
+        width: 100vw;
+        height: 100dvh;
+        box-shadow: none;
+    }
+
+    .bg-img {
+        object-fit: contain;
+    }
 }
+/* #endregion */

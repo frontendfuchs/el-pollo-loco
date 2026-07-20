@@ -3,53 +3,54 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>El pollo loco</title>
     <link rel="stylesheet" href="style.css">
     <script type="module" src="./js/game.js"></script>
 </head>
 
 <body>
-    <img id="title-img" src="./assets/img/10_images/title_el_pollo_locco_2.png" alt="El Pollo Locco Title">
-    <div>
-        <article class="game-description">
-            <p>Run, jump, and throw hot salsa like your life depends on it !</p>
-            <p>The goal is simple: grab everything, survive the madness, and defeat the giant chicken.</p>
-        </article>
-    </div>
-    <div class="game-container">
-        <!-- Startbildschirm -->
-        <div id="start-screen">
-            <img class="bg-img" src="assets/img/9_intro_outro_screens/start/startscreen_1.png"
-                alt="El Pollo Loco Start">
-
-            <!-- Button Container -->
-            <div class="button-container">
-                <button id="info-btn" class="info-btn">𝐢</button>
-                <button class="start-btn">▶</button>
+    <main>
+        <header>
+            <img id="title-img" src="./assets/img/10_images/title_el_pollo_locco_2.png" alt="El Pollo Locco Title">
+            <div>
+                <article class="game-description">
+                    <p>Run, jump, and throw hot salsa like your life depends on it !</p>
+                    <p>The goal is simple: grab everything, survive the madness, and defeat the giant chicken.</p>
+                </article>
             </div>
-
-            <!-- Info-Dialog -->
-            <dialog id="info-dialog" class="dialog-content">
-                <p><b>⬅ ➡</b><br>Run for your life</p><br>
-                <p><b>SPACE</b><br>Jump over danger</p><br>
-                <p><b>D</b><br>Throw the hot sauce!</p><br>
-                <button id="close-btn">X</button>
-            </dialog>
+        </header>
+        <div class="rotate-device">
+            <p>Rotate your device</p>
+            <img src="./assets/img/10_images/rotate_message_2.png">
         </div>
-
-        <!--Canvas -->
-        <canvas id="canvas" width="720" height="480"></canvas>
-        <!--Game-over/ Win-screen-->
-        <div id="game-over-screen" class="game-over-screen">
-            <img src="./assets/img/You won, you lost/Game over A.png" alt="Game over">
-            <button id="restart-btn" class="restart-btn">Try again</button>
+        <div class="game-container">
+            <div id="start-screen">
+                <img class="bg-img" src="assets/img/9_intro_outro_screens/start/startscreen_1.png"
+                    alt="El Pollo Loco Start">
+                <div class="button-container">
+                    <button id="info-btn" class="info-btn">𝐢</button>
+                    <button class="start-btn">▶</button>
+                </div>
+                <dialog id="info-dialog" class="dialog-content">
+                    <p><b>⬅ ➡</b><br>Run for your life</p><br>
+                    <p><b>SPACE</b><br>Jump over danger</p><br>
+                    <p><b>D</b><br>Throw the hot sauce!</p><br>
+                    <button id="close-btn">X</button>
+                </dialog>
+            </div>
+            <!--Canvas -->
+            <canvas id="canvas" width="720" height="480"></canvas>
+            <!--Game-over/ Win-screen-->
+            <div id="game-over-screen" class="game-over-screen">
+                <img src="./assets/img/You won, you lost/Game over A.png" alt="Game over">
+                <button id="restart-btn" class="restart-btn">Try again</button>
+            </div>
+            <div id="win-screen" class="win-screen">
+                <img src="./assets/img/You won, you lost/You Win B.png" alt="You win">
+                <button id="restart-btn-win" class="restart-btn">Play Again</button>
+            </div>
         </div>
-        <div id="win-screen" class="win-screen">
-    <img src="./assets/img/You won, you lost/You Win B.png" alt="You win">
-    <button id="restart-btn-win" class="restart-btn">Play Again</button>
-</div>
-    </div>
+    </main>
 </body>
-
 </html>
