@@ -11,6 +11,8 @@ export class Endboss extends MovableObject {
     hasFirstContact = false;
     isAlert = false;
     isAttacking = false;
+    endBossIsDead = false;
+
 
     IMAGES_WALKING_ENDBOSS = ImageHelper.ENDBOSS.IMAGES_WALKING;
     IMAGES_ALERT_ENDBOSS = ImageHelper.ENDBOSS.IMAGES_ALERT;
@@ -33,8 +35,12 @@ export class Endboss extends MovableObject {
     animate() {
 
         IntervalHub.startInterval(() => {
-            if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD_ENDBOSS);
+            if (this.isDead() && !this.endBossIsDead) {
+                this.playAnimationDead(this.IMAGES_DEAD_ENDBOSS);
+                    if (this.checkGameStatus()) {
+                    this.endBossIsDead = true;
+                    console.log("Game Win");
+                }
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT_ENDBOSS);
             } else if (this.isAttacking) {

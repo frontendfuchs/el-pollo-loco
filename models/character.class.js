@@ -71,7 +71,7 @@ export class Character extends MovableObject {
         IntervalHub.startInterval(() => {
             if (this.isDead() && !this.pepeIsDead) {
                 this.playAnimationDead(this.IMAGES_DEAD);
-                if (this.gameOver()) {
+                if (this.checkGameStatus()) {
                     this.pepeIsDead = true;
                     console.log("Game Over");
                 }

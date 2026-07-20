@@ -35,7 +35,7 @@ export class World {
   onGameOver;
   onGameWin;
   gameOver = false;
-  gameWon = false;
+  gameWin = false;
 
   constructor(canvas, keyboard, onGameOver, onGameWin) {
     this.ctx = canvas.getContext("2d");
@@ -55,7 +55,7 @@ export class World {
 
 run() {
     IntervalHub.startInterval(() => {
-        if (this.gameOver || this.gameWon) {
+        if (this.gameOver || this.gameWin) {
             return;
         }
 
@@ -73,7 +73,7 @@ run() {
 }
 
   checkGameOver() {
-    if (this.character.isDead() && !this.gameOver) {
+    if (this.character.isDead() && this.character.checkGameStatus()) {
       this.gameOver = true;
       IntervalHub.stopAllIntervals();
 
@@ -85,8 +85,8 @@ run() {
 
   checkGameWin() {
     this.level.enemies.forEach((enemy) => {
-        if (enemy instanceof Endboss && enemy.isDead() && !this.gameWon) {
-            this.gameWon = true;
+        if (enemy instanceof Endboss && enemy.isDead() && enemy.checkGameStatus()) {
+            this.gameWin = true;
             IntervalHub.stopAllIntervals();
 
             if (this.onGameWin) {
@@ -150,7 +150,7 @@ run() {
           (characterJump && characterPos > enemyPos))
       ) {
         enemy.die();
-        this.character.speedY = 15;
+        this.character.speedY = 5;
       }
     });
   }
@@ -190,6 +190,9 @@ run() {
 
   removeDeadEnemy() {
     this.level.enemies = this.level.enemies.filter((enemy) => {
+       if (enemy instanceof Endboss) {
+      return true;
+    }
       if (!enemy.isDead()) {
         return true;
       }

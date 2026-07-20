@@ -7,6 +7,7 @@ export class DrawableObject {
     imageCache = {};
     currentImage = 0;
     currentImageDead = 1;
+    playAnimationDeadCount = 0;
     offset = {
         top: 0,
         left: 0,
@@ -55,13 +56,13 @@ export class DrawableObject {
         this.img = this.imageCache[path];
         this.currentImageDead++;
         if (i == 0) {
-            this.currentImageDead = 0;
+            this.currentImageDead = 1;
+            this.playAnimationDeadCount++;
             return;
         }
     }
 
-    gameOver() {
-        return this.currentImageDead == 0;
-
+    checkGameStatus() {
+        return this.playAnimationDeadCount == 3;
     }
 }
