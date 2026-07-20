@@ -9,7 +9,7 @@ import { Coin } from "../models/coin.class.js";
 
 const CHICKEN_AMOUNT = 6;
 const CHICKEN_BABY_AMOUNT = 3;
-const CLOUDS_POSITION = [200,800,600,1600,2400,2700,2900,3000];
+const CLOUDS_POSITION = [200, 800, 600, 1600, 2400, 2700, 2900, 3000];
 const BOTTLES_X_POSITION = [40, 260, 340, 500, 620, 760, 920, 1080, 1240];
 const BOTTLES_Y_POSITION = 380;
 
@@ -19,7 +19,6 @@ function createEnemies(amount, EnemyClass) {
     for (let i = 0; i < amount; i++) {
         enemies.push(new EnemyClass());
     }
-
     return enemies;
 }
 
@@ -31,7 +30,6 @@ function createClouds(positions) {
         const x = positions[i];
         clouds.push(new Cloud(x));
     }
-
     return clouds;
 }
 
@@ -43,7 +41,6 @@ function createBottles(positions_x, position_y) {
         const x = positions_x[i];
         bottles.push(new Bottle(x, position_y));
     }
-
     return bottles;
 }
 
@@ -72,8 +69,6 @@ export const level1 = new Level([
     // new ChickenBaby(),
     // new ChickenBaby(),
     // new ChickenBaby(),
-    
-
     ...createEnemies(CHICKEN_AMOUNT, Chicken),
     ...createEnemies(CHICKEN_BABY_AMOUNT, ChickenBaby),
     new Endboss(),

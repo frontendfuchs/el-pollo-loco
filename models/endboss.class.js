@@ -4,6 +4,11 @@ import { IntervalHub } from "../helper_classes/intervalhub-helper.js";
 
 export class Endboss extends MovableObject {
 
+    IMAGES_WALKING_ENDBOSS = ImageHelper.ENDBOSS.IMAGES_WALKING;
+    IMAGES_ALERT_ENDBOSS = ImageHelper.ENDBOSS.IMAGES_ALERT;
+    IMAGES_ATTACK_ENDBOSS = ImageHelper.ENDBOSS.IMAGES_ATTACK;
+    IMAGES_HURT_ENDBOSS = ImageHelper.ENDBOSS.IMAGES_HURT;
+    IMAGES_DEAD_ENDBOSS = ImageHelper.ENDBOSS.IMAGEAS_DEAD;
     height = 400;
     width = 250;
     y = 60;
@@ -13,17 +18,10 @@ export class Endboss extends MovableObject {
     isAttacking = false;
     endBossIsDead = false;
 
-
-    IMAGES_WALKING_ENDBOSS = ImageHelper.ENDBOSS.IMAGES_WALKING;
-    IMAGES_ALERT_ENDBOSS = ImageHelper.ENDBOSS.IMAGES_ALERT;
-    IMAGES_ATTACK_ENDBOSS = ImageHelper.ENDBOSS.IMAGES_ATTACK;
-    IMAGES_HURT_ENDBOSS = ImageHelper.ENDBOSS.IMAGES_HURT;
-    IMAGES_DEAD_ENDBOSS = ImageHelper.ENDBOSS.IMAGEAS_DEAD;
-
     constructor() {
         super();
-        this.loadImage(this.IMAGES_ALERT_ENDBOSS[0]); 
-        this.loadImages(this.IMAGES_ALERT_ENDBOSS); 
+        this.loadImage(this.IMAGES_ALERT_ENDBOSS[0]);
+        this.loadImages(this.IMAGES_ALERT_ENDBOSS);
         this.loadImages(this.IMAGES_WALKING_ENDBOSS);
         this.loadImages(this.IMAGES_ATTACK_ENDBOSS);
         this.loadImages(this.IMAGES_HURT_ENDBOSS);
@@ -32,12 +30,13 @@ export class Endboss extends MovableObject {
         this.animate();
     }
 
+
     animate() {
 
         IntervalHub.startInterval(() => {
             if (this.isDead() && !this.endBossIsDead) {
                 this.playAnimationDead(this.IMAGES_DEAD_ENDBOSS);
-                    if (this.checkGameStatus()) {
+                if (this.checkGameStatus()) {
                     this.endBossIsDead = true;
                     console.log("Game Win");
                 }
@@ -52,12 +51,11 @@ export class Endboss extends MovableObject {
             }
         }, 200);
 
+
         IntervalHub.startInterval(() => {
             if (this.hasFirstContact && !this.isDead() && !this.isAttacking) {
                 this.x -= this.speed;
             }
         }, 1000 / 60);
     }
-
-
 }

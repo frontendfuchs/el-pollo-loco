@@ -21,37 +21,39 @@ const elements = {
     restartBtnWin: document.getElementById('restart-btn-win')
 };
 
+
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard, showGameOverScreen, showWinScreen);
 }
 
+
 function startGame() {
     if (elements.startScreen) {
         elements.startScreen.style.display = 'none';
     }
-
     if (elements.gameDescription) {
         elements.gameDescription.style.display = 'none';
     }
-
     if (elements.titleImg) {
         elements.titleImg.classList.add('show-title');
     }
-
     init();
 }
+
 
 function restartGame() {
     IntervalHub.stopAllIntervals();
     location.reload();
 }
 
+
 function showGameOverScreen() {
     if (elements.gameOverScreen) {
         elements.gameOverScreen.classList.add('show');
     }
 }
+
 
 function showWinScreen() {
     if (elements.winScreen) {
@@ -60,17 +62,14 @@ function showWinScreen() {
 }
 
 
-
 // Klick-Event für den Start-Button
 if (elements.startBtn) {
     elements.startBtn.addEventListener('click', startGame);
 }
-
 // Restart-Button im Game-Over-Screen
 if (elements.restartBtn) {
     elements.restartBtn.addEventListener('click', restartGame);
 }
-
 //Restart-Button you Win Screen
 if (elements.restartBtnWin) {
     elements.restartBtnWin.addEventListener('click', restartGame);
@@ -84,17 +83,18 @@ function openDialog() {
     }
 }
 
+
 function closeDialog() {
     if (elements.dialog) {
         elements.dialog.close();
     }
 }
 
+
 // Listener für den Dialog
 if (elements.infoBtn) {
     elements.infoBtn.addEventListener('click', openDialog);
 }
-
 if (elements.closeBtn) {
     elements.closeBtn.addEventListener('click', closeDialog);
 }
@@ -122,8 +122,8 @@ window.addEventListener('keydown', (event) => {
     }
     // console.log(event.code);
     // console.log(keyboard.LEFT);
-
 });
+
 
 window.addEventListener('keyup', (event) => {
     if (event.code == 'ArrowLeft') {
@@ -145,5 +145,4 @@ window.addEventListener('keyup', (event) => {
         keyboard.D = false;
     }
     // console.log(keyboard.LEFT);
-
 });

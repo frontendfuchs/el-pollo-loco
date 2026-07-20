@@ -20,10 +20,8 @@ export class World {
   statusBarEndBoss = new StatusBarEndBoss();
   character = new Character();
   level = level1;
-
   collectedCoins = 0;
   allCoins = this.level.coin.length;
-
   collectedBottles = 0;
   allBottles = this.level.bottles.length;
 
@@ -49,16 +47,18 @@ export class World {
     this.draw();
     this.run();
   }
+
+
   setWorld() {
     this.character.world = this;
   }
+
 
   run() {
     IntervalHub.startInterval(() => {
       if (this.gameOver || this.gameWin) {
         return;
       }
-
       this.checkJumpOnEnemy();
       this.checkEnemyAttack();
       this.checkThrowObjects();
@@ -72,23 +72,23 @@ export class World {
     }, 200);
   }
 
+
   checkGameOver() {
     if (this.character.isDead() && this.character.checkGameStatus()) {
       this.gameOver = true;
       IntervalHub.stopAllIntervals();
-
       if (this.onGameOver) {
         this.onGameOver();
       }
     }
   }
 
+
   checkGameWin() {
     this.level.enemies.forEach((enemy) => {
       if (enemy instanceof Endboss && enemy.isDead() && enemy.checkGameStatus()) {
         this.gameWin = true;
         IntervalHub.stopAllIntervals();
-
         if (this.onGameWin) {
           this.onGameWin();
         }
@@ -100,7 +100,6 @@ export class World {
   checkEndbossContact() {
     this.level.enemies.forEach((enemy) => {
       if (enemy instanceof Endboss) {
-
         // 1. ALERT:
         if (this.character.x > 1500 && this.character.x <= 2100 && !enemy.hasFirstContact) {
           enemy.isAlert = true;
@@ -120,18 +119,18 @@ export class World {
     });
   }
 
+
   checkThrowObjects() {
     if (this.keyboard.D && this.collectedBottles > 0) {
       let bottle = new ThrowableObject();
       bottle.throw(this.character.x, this.character.y);
       this.throwableObjects.push(bottle);
-
       this.collectedBottles--;
       this.updateBottleStatusBar();
-
       this.keyboard.D = false;
     }
   }
+
 
   checkJumpOnEnemy() {
     this.level.enemies.forEach((enemy) => {
@@ -154,12 +153,12 @@ export class World {
     });
   }
 
+
   checkEnemyAttack() {
     this.level.enemies.forEach((enemy) => {
       if (enemy.isDead()) {
         return;
       }
-
       if (
         !this.character.isDead() &&
         !this.character.isHurt() &&
@@ -171,10 +170,10 @@ export class World {
     });
   }
 
+
   checkBottleHits() {
     this.throwableObjects.forEach((bottle) => {
       this.level.enemies.forEach((enemy) => {
-
         if (!enemy.isDead() && !bottle.hasHit && bottle.isColliding(enemy)) {
           enemy.hit();
           if (enemy instanceof Endboss) {
@@ -187,6 +186,7 @@ export class World {
     });
   }
 
+
   removeDeadEnemy() {
     this.level.enemies = this.level.enemies.filter((enemy) => {
       if (enemy instanceof Endboss) {
@@ -195,13 +195,12 @@ export class World {
       if (!enemy.isDead()) {
         return true;
       }
-
       let timePassed = new Date().getTime() - enemy.deathTime;
       timePassed = timePassed / 1000;
-
       return timePassed < 0.7;
     });
   }
+
 
   collectCoin() {
     this.level.coin = this.level.coin.filter((coin) => {
@@ -211,33 +210,34 @@ export class World {
         this.collectedCoins++;
         this.updateCoinStatusBar();
       }
-
       return !collision;
     });
   }
+
 
   updateCoinStatusBar() {
     const percentage = (this.collectedCoins / this.allCoins) * 100;
     this.statusBarCoins.setPercentage(percentage);
   }
 
+
   collectBottle() {
     this.level.bottles = this.level.bottles.filter((bottle) => {
       const collision = this.character.isColliding(bottle);
-
       if (collision) {
         this.collectedBottles++;
         this.updateBottleStatusBar();
       }
-
       return !collision;
     });
   }
+
 
   updateBottleStatusBar() {
     const percentage = (this.collectedBottles / this.allBottles) * 100;
     this.statusBarBottle.setPercentage(percentage);
   }
+
 
   //ganz am anfang wird das canavs gelöscht, elemente werden schnell mit diese methode hinzugefügt dass du nicht sehen kannst das es leer ist
   //es wird schicht für schicht drüber gemalt
@@ -245,7 +245,6 @@ export class World {
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.translate(this.camera_x, 0);
-
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.bottles);
@@ -253,17 +252,16 @@ export class World {
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.throwableObjects);
-
     this.ctx.translate(-this.camera_x, 0);
     // ----- space for fixed objects ------
     this.addToMap(this.statusBar);
     this.addToMap(this.statusBarCoins);
     this.addToMap(this.statusBarBottle);
     this.addToMap(this.statusBarEndBoss);
-
     //Draw() wird immer wieder aufgerufen
     requestAnimationFrame(() => this.draw());
   }
+
 
   addObjectsToMap(objects) {
     objects.forEach((o) => {
@@ -271,11 +269,11 @@ export class World {
     });
   }
 
+
   addToMap(mo) {
     if (mo.otherDirection) {
       this.flipImage(mo);
     }
-
     mo.draw(this.ctx);
 
     // if (
@@ -285,11 +283,11 @@ export class World {
     // ) {
     //   mo.drawFrame(this.ctx);
     // }
-
     if (mo.otherDirection) {
       this.flipImageBack(mo);
     }
   }
+
 
   flipImage(mo) {
     this.ctx.save();
@@ -297,6 +295,7 @@ export class World {
     this.ctx.scale(-1, 1);
     mo.x = mo.x * -1;
   }
+
 
   flipImageBack(mo) {
     mo.x = mo.x * -1;

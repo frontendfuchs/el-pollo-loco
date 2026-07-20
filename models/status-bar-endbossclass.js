@@ -1,7 +1,7 @@
 import { DrawableObject } from "./drawable-object.class.js";
 import { ImageHelper } from "../helper_classes/image-helper.js";
 
-export class StatusBarEndBoss extends DrawableObject{
+export class StatusBarEndBoss extends DrawableObject {
 
     IMAGES_ENDBOSS_STATUS = ImageHelper.STATUSBAR.IMAGES_ENDBOSS;
     percentage = 100;
@@ -16,6 +16,7 @@ export class StatusBarEndBoss extends DrawableObject{
         this.setPercentage(this.percentage);
     }
 
+
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES_ENDBOSS_STATUS[this.resolveImageIndex()];
@@ -23,7 +24,6 @@ export class StatusBarEndBoss extends DrawableObject{
     }
 
 
-    
     resolveImageIndex() {
         if (this.percentage == 100) {
             return 5;
@@ -39,5 +39,4 @@ export class StatusBarEndBoss extends DrawableObject{
             return 0;
         }
     }
-
 }

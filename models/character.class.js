@@ -4,17 +4,18 @@ import { IntervalHub } from "../helper_classes/intervalhub-helper.js";
 
 export class Character extends MovableObject {
 
-    height = 280;
-    width = 120;
-    y = 50;
     IMAGES_WALKING = ImageHelper.CHARACTER.IMAGES_WALKING;
     IMAGES_JUMPING = ImageHelper.CHARACTER.IMAGES_JUMPING;
     IMAGES_DEAD = ImageHelper.CHARACTER.IMAGES_DEAD;
     IMAGES_HURT = ImageHelper.CHARACTER.IMAGES_HURT;
     IMAGES_IDLE = ImageHelper.CHARACTER.IMAGES_IDLE;
     IMAGES_LONG_IDLE = ImageHelper.CHARACTER.IMAGES_LONG_IDLE;
+    height = 280;
+    width = 120;
+    y = 50;
     speed = 5;
     pepeIsDead = false;
+    lastMove = new Date().getTime();
     offset = {
         top: 110,
         right: 10,
@@ -25,8 +26,6 @@ export class Character extends MovableObject {
     rY;
     rW;
     rH;
-    lastMove = new Date().getTime();
-
 
     constructor() {
         super().loadImage('assets/img/2_character_pepe/2_walk/W-21.png');
@@ -49,23 +48,21 @@ export class Character extends MovableObject {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.SPACE || this.world.keyboard.D) {
                     this.lastMove = new Date().getTime();
                 }
-
                 if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                     this.moveRight();
                     this.otherDirection = false;
                 }
-
                 if (this.world.keyboard.LEFT && this.x > 0) {
                     this.moveLeft();
                     this.otherDirection = true;
                 }
-
                 if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                     this.jump();
                 }
                 this.world.camera_x = -this.x + 100;
             }
         }, 1000 / 60);
+
 
         // 2. Intervall: ANIMATIONEN (Walk, Jump, Hurt, Dead)
         IntervalHub.startInterval(() => {
@@ -86,15 +83,14 @@ export class Character extends MovableObject {
             }
         }, 50);
 
+
         // 3. Intervall: IDLE ANIMATIONEN
         IntervalHub.startInterval(() => {
             let isMoving = this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
-            
+
             if (!this.isDead() && !this.isHurt() && !this.isAboveGround() && !isMoving) {
-                
                 let timePassed = new Date().getTime() - this.lastMove;
                 timePassed = timePassed / 1000;
-
                 if (timePassed >= 5) {
                     this.playAnimation(this.IMAGES_LONG_IDLE);
                 } else {
@@ -103,5 +99,4 @@ export class Character extends MovableObject {
             }
         }, 200);
     }
-
 }

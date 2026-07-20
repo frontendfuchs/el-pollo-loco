@@ -15,10 +15,12 @@ export class DrawableObject {
         bottom: 0,
     };
 
+
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
     }
+
 
     loadImages(arr) {
         arr.forEach((path) => {
@@ -28,9 +30,11 @@ export class DrawableObject {
         });
     }
 
+
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
+
 
     drawFrame(ctx) {
         ctx.beginPath();
@@ -43,12 +47,14 @@ export class DrawableObject {
         ctx.stroke();
     }
 
+
     playAnimation(images) {
         let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
     }
+
 
     playAnimationDead(images) {
         let i = this.currentImageDead % images.length;
@@ -61,6 +67,7 @@ export class DrawableObject {
             return;
         }
     }
+
 
     checkGameStatus() {
         return this.playAnimationDeadCount == 3;
