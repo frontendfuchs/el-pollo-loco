@@ -54,7 +54,7 @@ class SoundHelper {
 
     static pauseAll() {
         SoundHelper.allSounds.forEach((sound) => {
-            sound.pause();
+            SoundHelper.stop(sound);
         });
     }
 
@@ -103,9 +103,9 @@ class SoundHelper {
             return;
         }
 
-        soundIcon.src = SoundHelper.isMuted
-            ? "assets/icons/sound-off.png"
-            : "assets/icons/sound-on.png";
+        soundIcon.textContent = SoundHelper.isMuted
+            ? "volume_off"
+            : "volume_up";
     }
 }
 
