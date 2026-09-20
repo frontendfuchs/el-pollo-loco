@@ -1,6 +1,7 @@
 import { ImageHelper } from "../helper_classes/image-helper.js";
 import { MovableObject } from "./movable-object.class.js";
 import { IntervalHub } from "../helper_classes/intervalhub-helper.js";
+import { SoundHelper } from "../helper_classes/sound-helper.js";
 
 export class Character extends MovableObject {
 
@@ -16,6 +17,8 @@ export class Character extends MovableObject {
     speed = 5;
     pepeIsDead = false;
     lastMove = new Date().getTime();
+    isMoving = false;
+    snoringStarted = false;
     offset = {
         top: 110,
         right: 10,
@@ -47,6 +50,14 @@ export class Character extends MovableObject {
             if (!this.isDead()) {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.SPACE || this.world.keyboard.D) {
                     this.lastMove = new Date().getTime();
+                }
+                let wasMoving = this.isMoving;
+                this.isMoving = this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
+                if (this.isMoving && !wasMoving) {
+                    SoundHelper.play(SoundHelper.characterRun, 0.3);
+                }
+                if (!this.isMoving && wasMoving) {
+                    SoundHelper.stop(SoundHelper.characterRun);
                 }
                 if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                     this.moveRight();
@@ -93,9 +104,15 @@ export class Character extends MovableObject {
                 timePassed = timePassed / 1000;
                 if (timePassed >= 5) {
                     this.playAnimation(this.IMAGES_LONG_IDLE);
+                    if (!this.snoringStarted) {
+                        SoundHelper.play(SoundHelper.characterSnoring, 0.3);
+                        this.snoringStarted = true;
+                    }
                 } else {
                     this.playAnimation(this.IMAGES_IDLE);
                 }
+            } else {
+                this.snoringStarted = false;
             }
         }, 200);
     }
