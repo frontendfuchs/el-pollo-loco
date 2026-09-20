@@ -69,6 +69,7 @@ export class World {
       this.checkGameOver();
       this.checkGameWin();
       this.removeDeadEnemy();
+      this.removeSplashedBottles();
     }, 200);
   }
 
@@ -175,6 +176,7 @@ export class World {
     this.throwableObjects.forEach((bottle) => {
       this.level.enemies.forEach((enemy) => {
         if (!enemy.isDead() && !bottle.hasHit && bottle.isColliding(enemy)) {
+          bottle.hit();
           enemy.hit();
           if (enemy instanceof Endboss) {
             this.statusBarEndBoss.setPercentage(enemy.energy);
@@ -198,6 +200,13 @@ export class World {
       let timePassed = new Date().getTime() - enemy.deathTime;
       timePassed = timePassed / 1000;
       return timePassed < 0.7;
+    });
+  }
+
+
+  removeSplashedBottles() {
+    this.throwableObjects = this.throwableObjects.filter((bottle) => {
+      return !bottle.hasHit || bottle.splashing;
     });
   }
 
