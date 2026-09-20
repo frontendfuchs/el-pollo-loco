@@ -1,6 +1,7 @@
 import { Keyboard } from '../models/keyboard.class.js';
 import { World } from '../models/world.class.js';
 import { IntervalHub } from '../helper_classes/intervalhub-helper.js';
+import { SoundHelper } from '../helper_classes/sound-helper.js';
 
 let canvas;
 let world;
@@ -12,13 +13,14 @@ const elements = {
     titleImg: document.getElementById('title-img'),
     canvas: document.getElementById('canvas'),
     startBtn: document.querySelector('.start-btn'),
-    infoBtn: document.querySelector('.info-btn'),
+    infoBtn: document.getElementById('info-btn'),
     dialog: document.getElementById('info-dialog'),
     closeBtn: document.getElementById('close-btn'),
     gameOverScreen: document.getElementById('game-over-screen'),
     restartBtn: document.getElementById('restart-btn'),
     winScreen: document.getElementById('win-screen'),
-    restartBtnWin: document.getElementById('restart-btn-win')
+    restartBtnWin: document.getElementById('restart-btn-win'),
+    soundToggleBtn: document.getElementById('sound-toggle-btn')
 };
 
 
@@ -29,6 +31,8 @@ function init() {
 
 
 function startGame() {
+    SoundHelper.init();
+    SoundHelper.play(SoundHelper.gameStart, 0.5);
     if (elements.startScreen) {
         elements.startScreen.style.display = 'none';
     }
@@ -43,6 +47,7 @@ function startGame() {
 
 
 function restartGame() {
+    SoundHelper.stopAll();
     IntervalHub.stopAllIntervals();
     location.reload();
 }
@@ -97,6 +102,10 @@ if (elements.infoBtn) {
 }
 if (elements.closeBtn) {
     elements.closeBtn.addEventListener('click', closeDialog);
+}
+// Sound-Toggle-Button
+if (elements.soundToggleBtn) {
+    elements.soundToggleBtn.addEventListener('click', () => SoundHelper.toggleSound());
 }
 
 
