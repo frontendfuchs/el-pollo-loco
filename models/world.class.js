@@ -11,6 +11,7 @@ import { StatusBarBottle } from "./status-bar-bottles.class.js";
 import { ThrowableObject } from "./throwable-object.class.js";
 import { StatusBarEndBoss } from "./status-bar-endbossclass.js";
 import { Endboss } from "./endboss.class.js";
+import { SoundHelper } from "../helper_classes/sound-helper.js";
 
 
 export class World {
@@ -77,6 +78,8 @@ export class World {
   checkGameOver() {
     if (this.character.isDead() && this.character.checkGameStatus()) {
       this.gameOver = true;
+      SoundHelper.stopAll();
+      SoundHelper.play(SoundHelper.characterDead, 0.7);
       IntervalHub.stopAllIntervals();
       if (this.onGameOver) {
         this.onGameOver();
@@ -89,6 +92,7 @@ export class World {
     this.level.enemies.forEach((enemy) => {
       if (enemy instanceof Endboss && enemy.isDead() && enemy.checkGameStatus()) {
         this.gameWin = true;
+        SoundHelper.stopAll();
         IntervalHub.stopAllIntervals();
         if (this.onGameWin) {
           this.onGameWin();
@@ -104,6 +108,7 @@ export class World {
         // 1. ALERT:
         if (this.character.x > 1500 && this.character.x <= 2100 && !enemy.hasFirstContact) {
           enemy.isAlert = true;
+          SoundHelper.play(SoundHelper.endbossApproach, 0.5);
         }
         // 2. WALKING:
         if (this.character.x > 2100) {
@@ -127,6 +132,7 @@ export class World {
       bottle.throw(this.character.x, this.character.y);
       this.throwableObjects.push(bottle);
       this.collectedBottles--;
+      SoundHelper.play(SoundHelper.bottleBreak, 0.5);
       this.updateBottleStatusBar();
       this.keyboard.D = false;
     }
@@ -142,9 +148,11 @@ export class World {
       if (enemy instanceof ChickenBaby) {
         enemy.die();
         this.character.speedY = 3.5;
+        SoundHelper.play(SoundHelper.chickenDead, 0.5);
       } else if (this.character.isAboveGround()) {
         enemy.die();
         this.character.speedY = 3.5;
+        SoundHelper.play(SoundHelper.chickenDead, 0.5);
       }
     });
   }
@@ -163,6 +171,7 @@ export class World {
       ) {
         this.character.hit();
         this.statusBar.setPercentage(this.character.energy);
+        SoundHelper.play(SoundHelper.characterDamage, 0.5);
       }
     });
   }
@@ -232,6 +241,7 @@ export class World {
       if (collision) {
         this.collectedBottles++;
         this.updateBottleStatusBar();
+        SoundHelper.play(SoundHelper.bottleCollect, 0.5);
       }
       return !collision;
     });
