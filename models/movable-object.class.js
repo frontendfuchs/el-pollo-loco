@@ -6,7 +6,7 @@ export class MovableObject extends DrawableObject {
     speed = 0.15;
     otherDirection = false;
     speedY = 0;
-    acceleration = 2;
+    acceleration = 0.64;
     energy = 100;
     lastHit = 0;
     hasDied = false;
@@ -20,7 +20,7 @@ export class MovableObject extends DrawableObject {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
-        }, 1000 / 25);
+        }, 1000 / 60);
     }
 
 
@@ -44,7 +44,7 @@ export class MovableObject extends DrawableObject {
 
 
     jump() {
-        this.speedY = 21;
+        this.speedY = 14;
     }
 
 

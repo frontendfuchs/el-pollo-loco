@@ -23,7 +23,7 @@ export class ThrowableObject extends MovableObject {
     throw(x, y) {
         this.x = x;
         this.y = y;
-        this.speedY = 20;
+        this.speedY = 10.5;
         this.applyGravity();
         this.animate();
         IntervalHub.startInterval(() => {

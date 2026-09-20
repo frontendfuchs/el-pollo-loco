@@ -6,6 +6,7 @@ export class DrawableObject {
     width = 100;
     imageCache = {};
     currentImage = 0;
+    currentAnimation = '';
     currentImageDead = 1;
     playAnimationDeadCount = 0;
     offset = {
@@ -49,6 +50,10 @@ export class DrawableObject {
 
 
     playAnimation(images) {
+        if (this.currentAnimation !== images) {
+            this.currentAnimation = images;
+            this.currentImage = 0;
+        }
         let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];

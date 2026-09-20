@@ -70,7 +70,7 @@ export class World {
       this.checkGameWin();
       this.removeDeadEnemy();
       this.removeSplashedBottles();
-    }, 200);
+    }, 100);
   }
 
 
@@ -135,21 +135,16 @@ export class World {
 
   checkJumpOnEnemy() {
     this.level.enemies.forEach((enemy) => {
-      if (enemy.isDead()) {
-        return;
-      }
-      const characterJump = this.character.isAboveGround();
-      const characterPos = this.character.rY + this.character.rH - (2 * enemy.offset.top);
-      const enemyPos = enemy.rY + enemy.offset.top;
+      if (enemy.isDead()) return;
+      if (this.character.isDead()) return;
+      if (!this.character.isColliding(enemy)) return;
 
-      if (
-        !this.character.isDead() &&
-        this.character.isColliding(enemy) &&
-        (enemy instanceof ChickenBaby ||
-          (characterJump && characterPos <= enemyPos))
-      ) {
+      if (enemy instanceof ChickenBaby) {
         enemy.die();
-        this.character.speedY = 5;
+        this.character.speedY = 3.5;
+      } else if (this.character.isAboveGround()) {
+        enemy.die();
+        this.character.speedY = 3.5;
       }
     });
   }
@@ -163,6 +158,7 @@ export class World {
       if (
         !this.character.isDead() &&
         !this.character.isHurt() &&
+        !this.character.isAboveGround() &&
         this.character.isColliding(enemy)
       ) {
         this.character.hit();
