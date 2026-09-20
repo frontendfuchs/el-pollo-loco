@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>El pollo loco</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script type="module" src="./js/game.js"></script>
 </head>
 
@@ -15,8 +16,7 @@
             <img id="title-img" src="./assets/img/10_images/title_el_pollo_locco_2.png" alt="El Pollo Locco Title">
             <div>
                 <article class="game-description">
-                    <p>Run, jump, and throw hot salsa like your life depends on it !</p>
-                    <p>The goal is simple: grab everything, survive the madness, and defeat the giant chicken.</p>
+                    <p>The goal is simple:<br>grab everything, survive the madness, and defeat the giant chicken.</p>
                 </article>
             </div>
         </header>
@@ -29,10 +29,10 @@
                 <img class="bg-img" src="assets/img/9_intro_outro_screens/start/startscreen_1.png"
                     alt="El Pollo Loco Start">
                 <div class="button-container">
-                    <button id="info-btn" class="info-btn">𝐢</button>
-                    <button class="start-btn">▶</button>
+                    <button class="start-btn">PLAY</button>
                 </div>
                 <dialog id="info-dialog" class="dialog-content">
+                    <p>Run, jump, and throw hot salsa like your life depends on it!</p><br>
                     <p><b>⬅ ➡</b><br>Run for your life</p><br>
                     <p><b>SPACE</b><br>Jump over danger</p><br>
                     <p><b>D</b><br>Throw the hot sauce!</p><br>
@@ -50,6 +50,10 @@
                 <img src="./assets/img/You won, you lost/You Win B.png" alt="You win">
                 <button id="restart-btn-win" class="restart-btn">Play Again</button>
             </div>
+            <button id="info-btn" class="icon-btn">𝐢</button>
+            <button id="sound-toggle-btn" class="icon-btn">
+                <span id="sound-icon" class="material-icons">volume_up</span>
+            </button>
         </div>
     </main>
 </body>

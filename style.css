@@ -79,8 +79,9 @@ header {
 }
 
 .game-description p {
-    font-size: 40px;
+    font-size: clamp(18px, 2.5dvw, 44px);
     line-height: 1.4;
+    letter-spacing: 3px;
 }
 
 .rotate-device {
@@ -135,46 +136,82 @@ header {
 .button-container {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     padding: 0 20px;
     margin-top: 20px;
     z-index: 2;
 }
 
-.start-btn,
-.info-btn {
+.start-btn {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80px;
-    height: 40px;
+    width: 140px;
+    height: 55px;
     padding: 12px;
-    font-size: 24px;
+    font-size: 32px;
     border: none;
     border-radius: 12px;
     cursor: pointer;
     background-color: rgb(255, 209, 6);
     color: black;
     font-weight: bold;
+    letter-spacing: 4px;
+    transition: transform 0.15s ease;
 }
 
-.start-btn:hover,
-.info-btn:hover {
+.start-btn:hover {
     transform: scale(1.1);
 }
+
+.icon-btn {
+    position: absolute;
+    bottom: 10px;
+    z-index: 30;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: rgb(255, 209, 6);
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    font-style: italic;
+    font-family: 'zabras', Arial, Helvetica, sans-serif;
+    transition: transform 0.15s ease;
+}
+
+.icon-btn:hover {
+    transform: scale(1.15);
+}
+
+.icon-btn .material-icons {
+    font-size: 20px;
+    pointer-events: none;
+}
+
+#sound-toggle-btn { right: 10px; }
+#info-btn { right: 50px; }
 /* #endregion */
 
 /* #region Dialog */
 .dialog-content {
     position: relative;
     margin: auto;
-    padding: 20px 40px;
+    padding: 30px 30px;
     border: 4px solid rgb(255, 209, 6);
     border-radius: 15px;
     background-color: rgba(255, 255, 255, 0.753);
     color: black;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
+    max-width: 320px;
+    width: 90%;
 }
 
 dialog::backdrop {
@@ -189,7 +226,7 @@ dialog::backdrop {
 #close-btn {
     position: absolute;
     top: 10px;
-    right: 15px;
+    right: 10px;
     padding: 5px 10px;
     font-size: 16px;
     color: black;
