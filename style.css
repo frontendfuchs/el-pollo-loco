@@ -1,9 +1,344 @@
+/* #region Fonts */
+@font-face {
+    font-family: 'zabras';
+    src: url('./assets/fonts/zabars.ttf') format('truetype');
+}
+/* #endregion */
+
+/* #region Base-structure */
+* {
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    font-size: inherit;
+    color: inherit;
+    font-family: inherit;
+    background: initial;
+    border: initial;
+}
+
 body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100dvh;
+    background-image: url('assets/img/10_images/canvas_bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: 'zabras', Arial, Helvetica, sans-serif;
+}
+
+canvas {
+    display: block;
+    background-color: black;
+    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.5);
+}
+/* #endregion */
+
+/* #region Layout */
+header {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-canvas {
-    background-color: black;
+.game-container {
+    position: relative;
+    width: 720px;
+    height: 480px;
+    border: 2px solid white;
+    border-radius: 30px;
+    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.5);
+    overflow: hidden; /*um die ecken von canvas verstecken zu können*/
 }
+
+#title-img {
+    display: none;
+    margin-bottom: 30px;
+}
+
+#title-img.show-title {
+    display: block;
+    animation: popUp 0.5s ease-out forwards;
+}
+
+.game-description {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    width: 100%;
+    text-align: center;
+    color: darkred;
+}
+
+.game-description p {
+    font-size: clamp(18px, 2.5dvw, 44px);
+    line-height: 1.4;
+    letter-spacing: 3px;
+}
+
+.rotate-device {
+    display: none;
+    width: 100vw;
+    height: 100dvh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+}
+
+.rotate-device p {
+    padding: 12px 18px;
+    font-size: clamp(32px, 7dvw, 56px);
+    color: rgb(255, 209, 6);
+    background: rgba(0, 0, 0, 0.45);
+    border-radius: 14px;
+}
+
+.rotate-device img {
+    display: block;
+    width: clamp(130px, 40dvw, 240px);
+    height: auto;
+}
+/* #endregion */
+
+/* #region Start Screen */
+#start-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    z-index: 10;
+}
+
+.bg-img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 20px;
+    margin-top: 20px;
+    z-index: 2;
+}
+
+.start-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 140px;
+    height: 55px;
+    padding: 12px;
+    font-size: 32px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    background-color: rgb(255, 209, 6);
+    color: black;
+    font-weight: bold;
+    letter-spacing: 4px;
+    transition: transform 0.15s ease;
+}
+
+.start-btn:hover {
+    transform: scale(1.1);
+}
+
+.icon-btn {
+    position: absolute;
+    bottom: 10px;
+    z-index: 30;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: rgb(255, 209, 6);
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    font-style: italic;
+    font-family: 'zabras', Arial, Helvetica, sans-serif;
+    transition: transform 0.15s ease;
+}
+
+.icon-btn:hover {
+    transform: scale(1.15);
+}
+
+.icon-btn .material-icons {
+    font-size: 20px;
+    pointer-events: none;
+}
+
+#sound-toggle-btn { right: 10px; }
+#info-btn { right: 50px; }
+/* #endregion */
+
+/* #region Dialog */
+.dialog-content {
+    position: relative;
+    margin: auto;
+    padding: 30px 30px;
+    border: 4px solid rgb(255, 209, 6);
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.753);
+    color: black;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    max-width: 320px;
+    width: 90%;
+}
+
+dialog::backdrop {
+    background-color: rgba(27, 27, 27, 0.459);
+}
+
+.dialog-content p {
+    margin: 10px 0;
+    font-size: clamp(16px, 1.8dvw, 20px);
+}
+
+#close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    font-size: 16px;
+    color: black;
+    background-color: rgb(255, 209, 6);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.1s ease-in-out;
+}
+
+#close-btn:hover {
+    transform: scale(1.1);
+}
+/* #endregion */
+
+/* #region End Screens */
+.game-over-screen,
+.win-screen {
+    position: absolute;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 20;
+}
+
+.game-over-screen {
+    gap: 34px;
+}
+
+.win-screen {
+    gap: 24px;
+}
+
+.game-over-screen.show,
+.win-screen.show {
+    display: flex;
+}
+
+.game-over-screen img {
+    width: 300px;
+    height: auto;
+}
+
+.win-screen img {
+    width: 320px;
+    max-width: 80%;
+    height: auto;
+}
+
+.restart-btn {
+    padding: 12px 24px;
+    font-size: 34px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    background-color: rgb(255, 209, 6);
+    color: black;
+    font-weight: bold;
+    transition: transform 0.1s ease-in-out;
+    word-spacing: 5px;
+    letter-spacing: 2px;
+}
+
+.restart-btn:hover {
+    transform: scale(1.1);
+}
+/* #endregion */
+
+/* #region Media Queries */
+@media (max-width: 1024px) and (pointer: coarse) and (orientation: portrait) {
+    header,
+    .game-container {
+        display: none;
+    }
+
+    .rotate-device {
+        display: flex;
+    }
+
+    .bg-img {
+        object-fit: contain;
+    }
+}
+
+@media (max-width: 1023px) and (pointer: coarse) and (orientation: landscape) {
+    .rotate-device {
+        display: none;
+    }
+
+    header {
+        display: none;
+    }
+
+    .game-container {
+        width: 100dvw;
+        height: 100dvh;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    canvas {
+        width: 100vw;
+        height: 100dvh;
+        box-shadow: none;
+    }
+
+    .bg-img {
+        object-fit: contain;
+    }
+}
+/* #endregion */
