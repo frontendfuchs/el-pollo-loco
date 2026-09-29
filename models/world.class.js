@@ -148,7 +148,7 @@ export class World {
       if (enemy instanceof ChickenBaby) {
         enemy.die();
         this.character.speedY = 3.5;
-        SoundHelper.play(SoundHelper.chickenDead, 0.5);
+        SoundHelper.play(SoundHelper.babychick, 0.5);
       } else if (this.character.isAboveGround()) {
         enemy.die();
         this.character.speedY = 3.5;
@@ -184,7 +184,9 @@ export class World {
           bottle.hit();
           enemy.hit();
           if (enemy instanceof Endboss) {
-            this.statusBarEndBoss.setPercentage(enemy.energy);
+            this.statusBarEndBoss.setPercentage(
+              (enemy.energy / enemy.maxEnergy) * 100
+            );
           } else {
             enemy.die();
           }
@@ -223,6 +225,7 @@ export class World {
       if (collision) {
         this.collectedCoins++;
         this.updateCoinStatusBar();
+        SoundHelper.play(SoundHelper.collectCoin, 0.5);
       }
       return !collision;
     });
