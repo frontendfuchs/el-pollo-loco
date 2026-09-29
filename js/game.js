@@ -37,6 +37,9 @@ function startGame() {
     if (elements.startScreen) {
         elements.startScreen.style.display = 'none';
     }
+    if (elements.infoBtn) {
+        elements.infoBtn.style.display = 'none';
+    }
     if (elements.gameDescription) {
         elements.gameDescription.style.display = 'none';
     }
@@ -116,7 +119,7 @@ function toggleInfoDialog() {
 
 // Listener für den Dialog
 if (elements.infoBtn) {
-    elements.infoBtn.addEventListener('click', openDialog);
+    elements.infoBtn.addEventListener('click', toggleInfoDialog);
 }
 if (elements.closeBtn) {
     elements.closeBtn.addEventListener('click', closeDialog);
