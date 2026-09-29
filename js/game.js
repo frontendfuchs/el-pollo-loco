@@ -33,6 +33,7 @@ function init() {
 function startGame() {
     SoundHelper.init();
     SoundHelper.play(SoundHelper.gameStart, 0.5);
+    SoundHelper.playBg();
     if (elements.startScreen) {
         elements.startScreen.style.display = 'none';
     }
@@ -96,6 +97,23 @@ function closeDialog() {
 }
 
 
+function isStartScreenVisible() {
+    return elements.startScreen && elements.startScreen.style.display !== 'none';
+}
+
+
+function toggleInfoDialog() {
+    if (!isStartScreenVisible() || !elements.dialog) {
+        return;
+    }
+    if (elements.dialog.open) {
+        closeDialog();
+    } else {
+        openDialog();
+    }
+}
+
+
 // Listener für den Dialog
 if (elements.infoBtn) {
     elements.infoBtn.addEventListener('click', openDialog);
@@ -128,6 +146,9 @@ window.addEventListener('keydown', (event) => {
     }
     if (event.code == 'KeyD') {
         keyboard.D = true;
+    }
+    if (event.code == 'KeyI') {
+        toggleInfoDialog();
     }
     // console.log(event.code);
     // console.log(keyboard.LEFT);
