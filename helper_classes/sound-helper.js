@@ -9,6 +9,9 @@ class SoundHelper {
     static characterDamage = new Audio("assets/sounds/characterDamage.mp3");
     static bottleCollect = new Audio("assets/sounds/bottleCollectSound.wav");
     static bottleBreak = new Audio("assets/sounds/bottleBreak.mp3");
+    static collectCoin = new Audio("assets/sounds/collect-coin.mp3");
+    static babychick = new Audio("assets/sounds/babychick.m4a");
+    static bgSound = new Audio("assets/sounds/bg-sound.mp3");
 
     static allSounds = [
         SoundHelper.gameStart,
@@ -21,15 +24,19 @@ class SoundHelper {
         SoundHelper.characterDamage,
         SoundHelper.bottleCollect,
         SoundHelper.bottleBreak,
+        SoundHelper.collectCoin,
+        SoundHelper.babychick,
+        SoundHelper.bgSound,
     ];
 
     static isMuted = false;
+    static bgSoundActive = false;
 
     static init() {
         SoundHelper.loadMuteState();
 
         SoundHelper.allSounds.forEach((sound) => {
-            sound.loop = false;
+            sound.loop = sound === SoundHelper.bgSound;
         });
 
         SoundHelper.updateSoundIcon();
@@ -52,6 +59,16 @@ class SoundHelper {
         sound.pause();
     }
 
+    static playBg() {
+        SoundHelper.bgSoundActive = true;
+        SoundHelper.play(SoundHelper.bgSound, 0.3);
+    }
+
+    static stopBg() {
+        SoundHelper.bgSoundActive = false;
+        SoundHelper.stop(SoundHelper.bgSound);
+    }
+
     static pauseAll() {
         SoundHelper.allSounds.forEach((sound) => {
             SoundHelper.stop(sound);
@@ -64,6 +81,8 @@ class SoundHelper {
     }
 
     static stopAll() {
+        SoundHelper.bgSoundActive = false;
+
         SoundHelper.allSounds.forEach((sound) => {
             SoundHelper.stop(sound);
         });
@@ -76,6 +95,8 @@ class SoundHelper {
 
         if (SoundHelper.isMuted) {
             SoundHelper.pauseAll();
+        } else if (SoundHelper.bgSoundActive) {
+            SoundHelper.play(SoundHelper.bgSound, 0.3);
         }
 
         SoundHelper.updateSoundIcon();
