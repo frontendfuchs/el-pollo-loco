@@ -184,7 +184,9 @@ export class World {
           bottle.hit();
           enemy.hit();
           if (enemy instanceof Endboss) {
-            this.statusBarEndBoss.setPercentage(enemy.energy);
+            this.statusBarEndBoss.setPercentage(
+              (enemy.energy / enemy.maxEnergy) * 100
+            );
           } else {
             enemy.die();
           }

@@ -14,6 +14,7 @@ export class Endboss extends MovableObject {
     y = 60;
     speed = 2;
     energy = 25;
+    maxEnergy = 25;
     hasFirstContact = false;
     isAlert = false;
     isAttacking = false;
