@@ -19,8 +19,10 @@ const elements = {
     closeBtn: document.getElementById('close-btn'),
     gameOverScreen: document.getElementById('game-over-screen'),
     restartBtn: document.getElementById('restart-btn'),
+    homeBtn: document.getElementById('home-btn'),
     winScreen: document.getElementById('win-screen'),
     restartBtnWin: document.getElementById('restart-btn-win'),
+    homeBtnWin: document.getElementById('home-btn-win'),
     soundToggleBtn: document.getElementById('sound-toggle-btn')
 };
 
@@ -82,9 +84,16 @@ if (elements.startBtn) {
 if (elements.restartBtn) {
     elements.restartBtn.addEventListener('click', restartGame);
 }
-//Restart-Button you Win Screen
+// Restart-Button you Win Screen
 if (elements.restartBtnWin) {
     elements.restartBtnWin.addEventListener('click', restartGame);
+}
+// Home-Buttons in beiden End-Screens (zurück zum Startbildschirm)
+if (elements.homeBtn) {
+    elements.homeBtn.addEventListener('click', restartGame);
+}
+if (elements.homeBtnWin) {
+    elements.homeBtnWin.addEventListener('click', restartGame);
 }
 
 

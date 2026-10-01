@@ -283,11 +283,19 @@ dialog::backdrop {
     height: auto;
 }
 
+.end-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
 .restart-btn {
-    padding: 12px 24px;
-    font-size: 34px;
+    padding: 7px 16px;
+    font-size: 22px;
     border: none;
-    border-radius: 12px;
+    border-radius: 10px;
     cursor: pointer;
     background-color: rgb(255, 209, 6);
     color: black;
