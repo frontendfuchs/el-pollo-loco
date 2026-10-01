@@ -21,9 +21,9 @@ export class Character extends MovableObject {
     snoringStarted = false;
     offset = {
         top: 110,
-        right: 10,
+        right: 16,
         bottom: 10,
-        left: 10,
+        left: 16,
     };
     rx;
     rY;

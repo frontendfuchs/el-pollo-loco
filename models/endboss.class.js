@@ -19,6 +19,12 @@ export class Endboss extends MovableObject {
     isAlert = false;
     isAttacking = false;
     endBossIsDead = false;
+    offset = {
+        top: 70,
+        right: 10,
+        bottom: 20,
+        left: 35,
+    };
 
     constructor() {
         super();
