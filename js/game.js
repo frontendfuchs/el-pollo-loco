@@ -31,7 +31,6 @@ function init() {
 
 
 function startGame() {
-    SoundHelper.init();
     SoundHelper.play(SoundHelper.gameStart, 0.5);
     SoundHelper.playBg();
     if (elements.startScreen) {
@@ -125,6 +124,7 @@ if (elements.closeBtn) {
     elements.closeBtn.addEventListener('click', closeDialog);
 }
 // Sound-Toggle-Button
+SoundHelper.init();
 if (elements.soundToggleBtn) {
     elements.soundToggleBtn.addEventListener('click', () => SoundHelper.toggleSound());
 }
