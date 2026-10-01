@@ -126,7 +126,7 @@ export class World {
   checkThrowObjects() {
     if (this.keyboard.D && this.collectedBottles > 0) {
       let bottle = new ThrowableObject();
-      bottle.throw(this.character.x, this.character.y);
+      bottle.throw(this.character.x + 90, this.character.y + 120);
       this.throwableObjects.push(bottle);
       this.collectedBottles--;
       SoundHelper.play(SoundHelper.bottleBreak, 0.5);
