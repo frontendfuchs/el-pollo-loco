@@ -7,13 +7,12 @@ export class IntervalHub {
                 static startInterval(func, timer) {
                     const newInterval = setInterval(func, timer);
                     IntervalHub.allIntervals.push(newInterval);
+                    return newInterval;
                 }
 
                 //Stoppt alle registrierten Intervalle und leert die Registry.
                 static stopAllIntervals() {
-                    console.log(IntervalHub.allIntervals.length);
-
                     IntervalHub.allIntervals.forEach(clearInterval);
-                    // IntervalHub.allIntervals = [];
+                    IntervalHub.allIntervals = [];
                 }
             }

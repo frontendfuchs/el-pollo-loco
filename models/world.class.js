@@ -46,7 +46,6 @@ export class World {
     this.allBottles = this.level.bottles.length;
     this.setWorld();
     this.draw();
-    this.run();
   }
 
 
@@ -55,23 +54,21 @@ export class World {
   }
 
 
-  run() {
-    IntervalHub.startInterval(() => {
-      if (this.gameOver || this.gameWin) {
-        return;
-      }
-      this.checkJumpOnEnemy();
-      this.checkEnemyAttack();
-      this.checkThrowObjects();
-      this.checkBottleHits();
-      this.collectCoin();
-      this.collectBottle();
-      this.checkEndbossContact();
-      this.checkGameOver();
-      this.checkGameWin();
-      this.removeDeadEnemy();
-      this.removeSplashedBottles();
-    }, 100);
+  update() {
+    if (this.gameOver || this.gameWin) {
+      return;
+    }
+    this.checkJumpOnEnemy();
+    this.checkEnemyAttack();
+    this.checkThrowObjects();
+    this.checkBottleHits();
+    this.collectCoin();
+    this.collectBottle();
+    this.checkEndbossContact();
+    this.checkGameOver();
+    this.checkGameWin();
+    this.removeDeadEnemy();
+    this.removeSplashedBottles();
   }
 
 
@@ -106,7 +103,7 @@ export class World {
     this.level.enemies.forEach((enemy) => {
       if (enemy instanceof Endboss) {
         // 1. ALERT:
-        if (this.character.x > 1500 && this.character.x <= 2100 && !enemy.hasFirstContact) {
+        if (this.character.x > 1500 && this.character.x <= 2100 && !enemy.hasFirstContact && !enemy.isAlert) {
           enemy.isAlert = true;
           SoundHelper.play(SoundHelper.endbossApproach, 0.5);
         }
@@ -261,6 +258,7 @@ export class World {
   //es wird schicht für schicht drüber gemalt
   //hintegrundobjekt als erstes weil alle andere objekte drüber liegen als schichten
   draw() {
+    this.update();
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.translate(this.camera_x, 0);
     this.addObjectsToMap(this.level.backgroundObjects);
