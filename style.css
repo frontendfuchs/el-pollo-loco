@@ -302,6 +302,44 @@ dialog::backdrop {
 }
 /* #endregion */
 
+/* #region Mobile Touch Controls */
+.touch-controls {
+    position: absolute;
+    bottom: max(16px, env(safe-area-inset-bottom));
+    z-index: 15;
+    display: none;
+    gap: 14px;
+}
+
+.touch-controls-left { left: max(16px, env(safe-area-inset-left)); }
+.touch-controls-right { right: max(16px, env(safe-area-inset-right)); }
+
+.touch-btn {
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.touch-btn img {
+    display: block;
+    width: clamp(48px, 9dvh, 84px);
+    height: auto;
+    pointer-events: none;
+    opacity: 0.4;
+    transition: opacity 0.15s ease;
+}
+
+.touch-btn.pressed img {
+    transform: scale(0.9);
+    opacity: 0.6;
+}
+/* #endregion */
+
 /* #region Media Queries */
 @media (max-width: 1024px) and (pointer: coarse) and (orientation: portrait) {
     header,
@@ -341,8 +379,29 @@ dialog::backdrop {
         box-shadow: none;
     }
 
-    .bg-img {
-        object-fit: contain;
+    .game-running .touch-controls {
+        display: flex;
+    }
+
+    #sound-toggle-btn {
+        top: 4px;
+        bottom: auto;
+        right: 10px;
+        width: 24px;
+        height: 24px;
+    }
+
+    #sound-toggle-btn .material-icons {
+        font-size: 16px;
+    }
+
+    #info-btn {
+        top: 4px;
+        bottom: auto;
+        right: 42px;
+        width: 24px;
+        height: 24px;
+        font-size: 14px;
     }
 }
 /* #endregion */

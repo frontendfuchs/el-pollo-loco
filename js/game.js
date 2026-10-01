@@ -9,6 +9,7 @@ let keyboard = new Keyboard();
 
 const elements = {
     startScreen: document.getElementById('start-screen'),
+    gameContainer: document.querySelector('.game-container'),
     gameDescription: document.querySelector('.game-description'),
     titleImg: document.getElementById('title-img'),
     canvas: document.getElementById('canvas'),
@@ -44,6 +45,9 @@ function startGame() {
     }
     if (elements.titleImg) {
         elements.titleImg.classList.add('show-title');
+    }
+    if (elements.gameContainer) {
+        elements.gameContainer.classList.add('game-running');
     }
     init();
 }
@@ -82,6 +86,34 @@ if (elements.restartBtn) {
 if (elements.restartBtnWin) {
     elements.restartBtnWin.addEventListener('click', restartGame);
 }
+
+
+// --- TOUCH CONTROLS (mobile) ---
+function bindTouchControl(el, key) {
+    if (!el) {
+        return;
+    }
+    const press = (event) => {
+        event.preventDefault();
+        keyboard[key] = true;
+        el.classList.add('pressed');
+    };
+    const release = (event) => {
+        event.preventDefault();
+        keyboard[key] = false;
+        el.classList.remove('pressed');
+    };
+    el.addEventListener('pointerdown', press);
+    el.addEventListener('pointerup', release);
+    el.addEventListener('pointercancel', release);
+    el.addEventListener('pointerleave', release);
+    el.addEventListener('contextmenu', (event) => event.preventDefault());
+}
+
+bindTouchControl(document.getElementById('touch-left'), 'LEFT');
+bindTouchControl(document.getElementById('touch-right'), 'RIGHT');
+bindTouchControl(document.getElementById('touch-jump'), 'SPACE');
+bindTouchControl(document.getElementById('touch-throw'), 'D');
 
 
 // --- INFO DIALOG ---
