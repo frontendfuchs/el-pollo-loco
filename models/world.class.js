@@ -99,6 +99,17 @@ export class World {
   }
 
 
+  isEndbossVisible() {
+    return this.level.enemies.some((enemy) => {
+      if (!(enemy instanceof Endboss)) {
+        return false;
+      }
+      const screenX = enemy.x + this.camera_x;
+      return screenX + enemy.width > 0 && screenX < this.canvas.width;
+    });
+  }
+
+
   checkEndbossContact() {
     this.level.enemies.forEach((enemy) => {
       if (enemy instanceof Endboss) {
@@ -273,7 +284,9 @@ export class World {
     this.addToMap(this.statusBar);
     this.addToMap(this.statusBarCoins);
     this.addToMap(this.statusBarBottle);
-    this.addToMap(this.statusBarEndBoss);
+    if (this.isEndbossVisible()) {
+      this.addToMap(this.statusBarEndBoss);
+    }
     //Draw() wird immer wieder aufgerufen
     requestAnimationFrame(() => this.draw());
   }
