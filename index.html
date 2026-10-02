@@ -36,6 +36,81 @@
                     <img class="dialog-img" src="./assets/img/dialog.png" alt="Controls info">
                     <button id="close-btn">X</button>
                 </dialog>
+                <dialog id="imprint-dialog" class="dialog-content">
+                    <div class="imprint-box">
+                        <img class="imprint-bg" src="./assets/img/Impressum.png" alt="Impressum">
+                        <div class="imprint-text">
+                            <p>Angaben gemäß § 5 DDG</p>
+                            <p>Verantwortlich für den Inhalt:</p>
+                            <p>
+                                Adriana German<br>
+                                Marktgäßle<br>
+                                71032 Böblingen<br>
+                                Deutschland
+                            </p>
+                            <h3>Kontakt</h3>
+                            <p>E-Mail: <a href="mailto:adriana.letitia@yahoo.com">adriana.letitia@yahoo.com</a></p>
+                            <h3>Haftungsausschluss</h3>
+                            <h4>Haftung für Inhalte</h4>
+                            <p>Als Diensteanbieterin bin ich gemäß § 7 Abs. 1 DDG für eigene Inhalte auf dieser Website
+                                nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 DDG bin ich jedoch nicht
+                                verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder
+                                nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.</p>
+                            <p>Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den
+                                allgemeinen Gesetzen bleiben hiervon unberührt. Eine Haftung ist jedoch erst ab dem
+                                Zeitpunkt möglich, zu dem mir eine konkrete Rechtsverletzung bekannt wird. Sobald mir
+                                entsprechende Rechtsverletzungen bekannt werden, werde ich die betreffenden Inhalte
+                                unverzüglich entfernen.</p>
+                            <h4>Haftung für Links</h4>
+                            <p>Diese Website enthält gegebenenfalls Links zu externen Websites Dritter, auf deren Inhalte
+                                ich keinen Einfluss habe. Daher kann ich für diese fremden Inhalte keine Gewähr
+                                übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder
+                                Betreiber verantwortlich.</p>
+                            <p>Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße
+                                überprüft. Rechtswidrige Inhalte waren zu diesem Zeitpunkt nicht erkennbar. Eine
+                                permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete
+                                Anhaltspunkte für eine Rechtsverletzung nicht zumutbar.</p>
+                            <p>Sollten mir Rechtsverletzungen bekannt werden, werde ich entsprechende Links unverzüglich
+                                entfernen.</p>
+                            <h4>Urheberrecht</h4>
+                            <p>Die von der Seitenbetreiberin erstellten Inhalte und Werke auf dieser Website unterliegen
+                                dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung oder sonstige
+                                Nutzung außerhalb der Grenzen des Urheberrechts bedarf der vorherigen schriftlichen
+                                Zustimmung der jeweiligen Urheberin.</p>
+                            <p>Soweit die Inhalte auf dieser Website nicht von der Seitenbetreiberin erstellt wurden,
+                                werden die Urheberrechte Dritter beachtet. Inhalte Dritter werden, soweit möglich, als
+                                solche gekennzeichnet.</p>
+                            <p>Solltest du dennoch auf eine mögliche Urheberrechtsverletzung aufmerksam werden, bitte ich
+                                um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werde ich die
+                                betreffenden Inhalte unverzüglich entfernen.</p>
+                            <h4>Datenschutz</h4>
+                            <p>Die Nutzung dieser Website ist in der Regel ohne Angabe personenbezogener Daten möglich.
+                                Soweit auf dieser Website personenbezogene Daten, beispielsweise dein Name, deine
+                                Anschrift oder deine E-Mail-Adresse, erhoben werden, erfolgt dies – soweit möglich –
+                                stets auf freiwilliger Basis.</p>
+                            <p>Diese Daten werden ohne deine ausdrückliche Zustimmung nicht an Dritte weitergegeben,
+                                sofern keine gesetzliche Verpflichtung zur Weitergabe besteht.</p>
+                            <p>Ich weise darauf hin, dass die Datenübertragung im Internet, beispielsweise bei der
+                                Kommunikation per E-Mail, Sicherheitslücken aufweisen kann. Ein vollständiger Schutz der
+                                Daten vor dem Zugriff durch Dritte ist nicht möglich.</p>
+                            <p>Der Nutzung der im Rahmen der Impressumspflicht veröffentlichten Kontaktdaten durch Dritte
+                                zur Übersendung von nicht ausdrücklich angeforderter Werbung und Informationsmaterialien
+                                wird hiermit ausdrücklich widersprochen. Die Betreiberin dieser Website behält sich
+                                rechtliche Schritte im Falle der unverlangten Zusendung von Werbeinformationen, etwa
+                                durch Spam-E-Mails, vor.</p>
+                            <h3>Verwendete Inhalte und Quellen</h3>
+                            <p><strong>Audioinhalte:</strong> Die auf dieser Website verwendeten Soundeffekte und
+                                Musikinhalte stammen aus folgenden Quellen: Pixabay, Developer Academy</p>
+                            <p><strong>Bildmaterial:</strong> Das verwendete Bildmaterial stammt von: Vecteezy</p>
+                            <p><strong>Icons:</strong> Auf dieser Website werden unter anderem folgende Icons verwendet:
+                                Pfeilzyklus-Icon and Ketchup icon von Canva, Vollbildschirm-Icon aus den Google
+                                Material Icons</p>
+                            <p><strong>Dialogfenster:</strong> Das Hintergrundbild sowie die verwendeten Icons für das
+                                Informationsdialogfenster stammen von Canva.</p>
+                        </div>
+                    </div>
+                    <button id="imprint-close-btn">X</button>
+                </dialog>
             </div>
             <!--Canvas -->
             <canvas id="canvas" width="720" height="480"></canvas>
@@ -55,6 +130,7 @@
                 </div>
             </div>
             <button id="info-btn" class="icon-btn">𝐢</button>
+            <button id="imprint-btn" class="icon-btn">Impressum</button>
             <button id="sound-toggle-btn" class="icon-btn">
                 <span id="sound-icon" class="material-icons">volume_up</span>
             </button>
