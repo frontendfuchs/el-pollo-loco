@@ -312,8 +312,9 @@ dialog::backdrop {
 
 /* #region Mobile Touch Controls */
 .touch-controls {
-    position: absolute;
-    bottom: max(16px, env(safe-area-inset-bottom));
+    position: fixed;
+    bottom: 0%;
+    transform: translateY(-50%);
     z-index: 15;
     display: none;
     gap: 14px;
@@ -398,7 +399,7 @@ dialog::backdrop {
         box-shadow: none;
     }
 
-    .game-running .touch-controls {
+    body.game-running .touch-controls {
         display: flex;
     }
 

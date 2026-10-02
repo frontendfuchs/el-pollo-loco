@@ -63,6 +63,7 @@ function startGame() {
     if (elements.gameContainer) {
         elements.gameContainer.classList.add('game-running');
     }
+    document.body.classList.add('game-running');
     init();
 }
 
@@ -79,6 +80,7 @@ function restartGame() {
  * Shows the game over screen.
  */
 function showGameOverScreen() {
+    document.body.classList.remove('game-running');
     if (elements.gameOverScreen) {
         elements.gameOverScreen.classList.add('show');
     }
@@ -88,6 +90,7 @@ function showGameOverScreen() {
  * Shows the win screen.
  */
 function showWinScreen() {
+    document.body.classList.remove('game-running');
     if (elements.winScreen) {
         elements.winScreen.classList.add('show');
     }
