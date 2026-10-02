@@ -36,16 +36,19 @@ export class ThrowableObject extends MovableObject {
      * Throws the bottle from the given position with horizontal and vertical movement.
      * @param {number} x - Starting X-position.
      * @param {number} y - Starting Y-position.
+     * @param {number} direction - Throw direction: 1 = right, -1 = left.
      */
-    throw(x, y) {
+    throw(x, y, direction = 1) {
         this.x = x;
         this.y = y;
+        this.direction = direction;
+        this.otherDirection = direction < 0;
         this.speedY = 10;
         this.applyGravity();
         this.animate();
         IntervalHub.startInterval(() => {
             if (!this.hasHit) {
-                this.x += 14;
+                this.x += 14 * direction;
             }
         }, 25);
     }
