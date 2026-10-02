@@ -1,10 +1,20 @@
 import { DrawableObject } from "./drawable-object.class.js";
 import { ImageHelper } from "../helper_classes/image-helper.js";
 
+/**
+ * Status bar showing the number of collected bottles.
+ * Extends DrawableObject and changes image based on percentage.
+ */
 export class StatusBarBottle extends DrawableObject {
+    /** Image frames for the bottle status bar. */
     IMAGES_BOTTLES_STATUS = ImageHelper.STATUSBAR.IMAGES_BOTTLES;
+
+    /** Current percentage of bottles collected (0–100). */
     percentage = 0;
 
+    /**
+     * Creates a new StatusBarBottle and sets initial position and size.
+     */
     constructor() {
         super();
         this.loadImages(this.IMAGES_BOTTLES_STATUS);
@@ -15,14 +25,20 @@ export class StatusBarBottle extends DrawableObject {
         this.setPercentage(0);
     }
 
-
+    /**
+     * Updates the percentage and sets the corresponding status bar image.
+     * @param {number} percentage - Current percentage of bottles collected (0–100).
+     */
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES_BOTTLES_STATUS[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
-
+    /**
+     * Resolves the image index based on the current percentage.
+     * @returns {number} Index of the image to display (0–5).
+     */
     resolveImageIndex() {
         if (this.percentage == 100) {
             return 5;

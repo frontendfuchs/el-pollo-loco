@@ -7,12 +7,27 @@ import { ChickenBaby } from "../models/chicken.baby.class.js";
 import { Bottle } from "../models/bottle.class.js";
 import { Coin } from "../models/coin.class.js";
 
+/** Number of adult chickens in level 1. */
 const CHICKEN_AMOUNT = 6;
+
+/** Number of baby chickens in level 1. */
 const CHICKEN_BABY_AMOUNT = 3;
+
+/** X-positions for clouds in level 1. */
 const CLOUDS_POSITION = [200, 800, 600, 1600, 2400, 2700, 2900, 3000];
+
+/** X-positions for bottles in level 1. */
 const BOTTLES_X_POSITION = [40, 260, 340, 500, 620, 760, 920, 1080, 1240];
+
+/** Y-position for all bottles in level 1. */
 const BOTTLES_Y_POSITION = 380;
 
+/**
+ * Creates an array of enemy instances.
+ * @param {number} amount - Number of enemies to create.
+ * @param {Function} EnemyClass - The enemy class constructor (e.g. Chicken, ChickenBaby).
+ * @returns {Array} Array of enemy instances.
+ */
 function createEnemies(amount, EnemyClass) {
     const enemies = [];
 
@@ -22,7 +37,11 @@ function createEnemies(amount, EnemyClass) {
     return enemies;
 }
 
-
+/**
+ * Creates an array of cloud instances at given X-positions.
+ * @param {number[]} positions - Array of X-positions for the clouds.
+ * @returns {Cloud[]} Array of Cloud instances.
+ */
 function createClouds(positions) {
     const clouds = [];
 
@@ -33,7 +52,12 @@ function createClouds(positions) {
     return clouds;
 }
 
-
+/**
+ * Creates an array of bottle instances at given positions.
+ * @param {number[]} positions_x - Array of X-positions for the bottles.
+ * @param {number} position_y - Y-position for all bottles.
+ * @returns {Bottle[]} Array of Bottle instances.
+ */
 function createBottles(positions_x, position_y) {
     const bottles = [];
 
@@ -44,43 +68,18 @@ function createBottles(positions_x, position_y) {
     return bottles;
 }
 
-
+/**
+ * Level 1 definition with enemies, clouds, background objects, bottles, and coins.
+ * @type {Level}
+ */
 export const level1 = new Level([
-    // new Chicken(),
-    // new Chicken(),
-    // new Chicken(),
-    // new Chicken(),
 
-    // new ChickenBaby(),
-    // new ChickenBaby(),
-    // new ChickenBaby(),
-    // new ChickenBaby(),
-    // new ChickenBaby(),
-    // new ChickenBaby(),
-    // new ChickenBaby(),
-    // new ChickenBaby(),
-    // new ChickenBaby(),
-    // new ChickenBaby(),
-    // new ChickenBaby(),
-    // new ChickenBaby(),
-    // new ChickenBaby(),
-    // new ChickenBaby(),
-    // new ChickenBaby(),
-    // new ChickenBaby(),
-    // new ChickenBaby(),
-    // new ChickenBaby(),
     ...createEnemies(CHICKEN_AMOUNT, Chicken),
     ...createEnemies(CHICKEN_BABY_AMOUNT, ChickenBaby),
     new Endboss(),
 ],
 
     [
-
-        // new Cloud(200),
-        // new Cloud(800),
-        // new Cloud(1600),
-        // new Cloud(2400),
-
         ...createClouds(CLOUDS_POSITION)
     ],
 
@@ -110,16 +109,6 @@ export const level1 = new Level([
     ],
 
     [
-        // new Bottle(180, 380),
-        // new Bottle(260, 380),
-        // new Bottle(340, 380),
-        // new Bottle(500, 380),
-        // new Bottle(620, 380),
-        // new Bottle(760, 380),
-        // new Bottle(920, 380),
-        // new Bottle(1080, 380),
-        // new Bottle(1240, 380),
-
         ...createBottles(BOTTLES_X_POSITION, BOTTLES_Y_POSITION)
     ],
 

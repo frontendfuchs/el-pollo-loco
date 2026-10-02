@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>El pollo loco</title>
+    <link rel="icon" href="./favicon.ico" sizes="any">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script type="module" src="./js/game.js"></script>
@@ -38,14 +39,28 @@
             </div>
             <!--Canvas -->
             <canvas id="canvas" width="720" height="480"></canvas>
+            <div class="touch-controls touch-controls-left">
+                <button class="touch-btn" id="touch-left"><img src="assets/img/11_controlls_mobile/left.png" alt=""></button>
+                <button class="touch-btn" id="touch-right"><img src="assets/img/11_controlls_mobile/right.png" alt=""></button>
+            </div>
+            <div class="touch-controls touch-controls-right">
+                <button class="touch-btn" id="touch-throw"><img src="assets/img/11_controlls_mobile/throw.png" alt=""></button>
+                <button class="touch-btn" id="touch-jump"><img src="assets/img/11_controlls_mobile/jump.png" alt=""></button>
+            </div>
             <!--Game-over/ Win-screen-->
             <div id="game-over-screen" class="game-over-screen">
-                <img src="./assets/img/You won, you lost/Game over A.png" alt="Game over">
-                <button id="restart-btn" class="restart-btn">Try again</button>
+                <img src="./assets/img/screens/lose.png" alt="Game over">
+                <div class="end-buttons">
+                    <button id="restart-btn" class="restart-btn">Try again</button>
+                    <button id="home-btn" class="restart-btn">Home</button>
+                </div>
             </div>
             <div id="win-screen" class="win-screen">
-                <img src="./assets/img/You won, you lost/You Win B.png" alt="You win">
-                <button id="restart-btn-win" class="restart-btn">Play Again</button>
+                <img src="./assets/img/screens/win.png" alt="You win">
+                <div class="end-buttons">
+                    <button id="restart-btn-win" class="restart-btn">Play Again</button>
+                    <button id="home-btn-win" class="restart-btn">Home</button>
+                </div>
             </div>
             <button id="info-btn" class="icon-btn">𝐢</button>
             <button id="sound-toggle-btn" class="icon-btn">

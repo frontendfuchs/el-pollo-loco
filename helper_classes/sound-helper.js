@@ -110,10 +110,16 @@ class SoundHelper {
     }
 
     static loadMuteState() {
-        const savedState = localStorage.getItem("soundMuted");
+        try {
+            const savedState = localStorage.getItem("soundMuted");
 
-        if (savedState !== null) {
-            SoundHelper.isMuted = JSON.parse(savedState);
+            if (savedState === null) {
+                return;
+            }
+
+            SoundHelper.isMuted = JSON.parse(savedState) === true;
+        } catch {
+            SoundHelper.isMuted = false;
         }
     }
 
