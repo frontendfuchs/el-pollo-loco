@@ -350,6 +350,14 @@ dialog::backdrop {
 /* #endregion */
 
 /* #region Media Queries */
+@media (max-width: 1024px) and (pointer: coarse) {
+    #close-btn {
+        top: 6px;
+        padding: 2px 6px;
+        font-size: clamp(12px, 2dvw, 16px);
+    }
+}
+
 @media (max-width: 1024px) and (pointer: coarse) and (orientation: portrait) {
     header,
     .game-container {
