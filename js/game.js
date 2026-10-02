@@ -25,6 +25,9 @@ const elements = {
     infoBtn: document.getElementById('info-btn'),
     dialog: document.getElementById('info-dialog'),
     closeBtn: document.getElementById('close-btn'),
+    imprintBtn: document.getElementById('imprint-btn'),
+    imprintDialog: document.getElementById('imprint-dialog'),
+    imprintCloseBtn: document.getElementById('imprint-close-btn'),
     gameOverScreen: document.getElementById('game-over-screen'),
     restartBtn: document.getElementById('restart-btn'),
     homeBtn: document.getElementById('home-btn'),
@@ -53,6 +56,9 @@ function startGame() {
     }
     if (elements.infoBtn) {
         elements.infoBtn.style.display = 'none';
+    }
+    if (elements.imprintBtn) {
+        elements.imprintBtn.style.display = 'none';
     }
     if (elements.gameDescription) {
         elements.gameDescription.style.display = 'none';
@@ -149,6 +155,7 @@ bindTouchControl(document.getElementById('touch-throw'), 'D');
  */
 function openDialog() {
     if (elements.dialog) {
+        closeImprintDialog();
         elements.dialog.showModal();
     }
 }
@@ -159,6 +166,25 @@ function openDialog() {
 function closeDialog() {
     if (elements.dialog) {
         elements.dialog.close();
+    }
+}
+
+/**
+ * Opens the imprint dialog.
+ */
+function openImprintDialog() {
+    if (elements.imprintDialog) {
+        closeDialog();
+        elements.imprintDialog.showModal();
+    }
+}
+
+/**
+ * Closes the imprint dialog.
+ */
+function closeImprintDialog() {
+    if (elements.imprintDialog) {
+        elements.imprintDialog.close();
     }
 }
 
@@ -189,6 +215,27 @@ if (elements.infoBtn) {
 }
 if (elements.closeBtn) {
     elements.closeBtn.addEventListener('click', closeDialog);
+}
+
+/**
+ * Toggles the imprint dialog open/closed, but only when the start screen is visible.
+ */
+function toggleImprintDialog() {
+    if (!isStartScreenVisible() || !elements.imprintDialog) {
+        return;
+    }
+    if (elements.imprintDialog.open) {
+        closeImprintDialog();
+    } else {
+        openImprintDialog();
+    }
+}
+
+if (elements.imprintBtn) {
+    elements.imprintBtn.addEventListener('click', toggleImprintDialog);
+}
+if (elements.imprintCloseBtn) {
+    elements.imprintCloseBtn.addEventListener('click', closeImprintDialog);
 }
 
 SoundHelper.init();

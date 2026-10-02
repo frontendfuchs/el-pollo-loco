@@ -197,6 +197,16 @@ header {
 
 #sound-toggle-btn { right: 10px; }
 #info-btn { right: 50px; }
+#imprint-btn {
+    right: 90px;
+    width: auto;
+    height: 32px;
+    padding: 0 12px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-style: normal;
+    letter-spacing: 2px;
+}
 /* #endregion */
 
 /* #region Dialog */
@@ -226,7 +236,8 @@ dialog::backdrop {
     object-fit: contain;
 }
 
-#close-btn {
+#close-btn,
+#imprint-close-btn {
     position: absolute;
     top: 2.7%;
     right: 9%;
@@ -241,8 +252,86 @@ dialog::backdrop {
     transition: transform 0.1s ease-in-out;
 }
 
-#close-btn:hover {
+#close-btn:hover,
+#imprint-close-btn:hover {
     transform: scale(1.1);
+}
+
+#imprint-close-btn {
+    right: 16%;
+}
+
+#imprint-dialog {
+    --imprint-w: min(93dvw, 940px, 158dvh);
+}
+
+.imprint-box {
+    position: relative;
+    width: var(--imprint-w);
+    aspect-ratio: 16 / 9;
+}
+
+.imprint-bg {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    pointer-events: none;
+    user-select: none;
+}
+
+.imprint-text {
+    padding: 14px;
+    position: absolute;
+    top: 15%;
+    right: 14%;
+    bottom: 9%;
+    left: 14%;
+    overflow-y: auto;
+    text-align: left;
+    font-size: calc(var(--imprint-w) * 0.017);
+    line-height: 1.3;
+    color: #3a2410;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(90, 55, 15, 0.5) rgba(0, 0, 0, 0.05);
+}
+
+.imprint-text h3 {
+    margin: 1.1em 0 0.4em;
+    font-size: 1.05em;
+}
+
+.imprint-text h4 {
+    margin: 0.9em 0 0.3em;
+    font-size: 1em;
+}
+
+.imprint-text p {
+    margin: 0 0 0.7em;
+}
+
+.imprint-text a {
+    color: inherit;
+}
+
+.imprint-text:focus {
+    outline: none;
+}
+
+.imprint-text::-webkit-scrollbar {
+    width: 8px;
+}
+
+.imprint-text::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+}
+
+.imprint-text::-webkit-scrollbar-thumb {
+    background: rgba(90, 55, 15, 0.5);
+    border-radius: 4px;
 }
 /* #endregion */
 
@@ -317,7 +406,7 @@ dialog::backdrop {
     transform: translateY(-50%);
     z-index: 15;
     display: none;
-    gap: 14px;
+    gap: 0px;
 }
 
 .touch-controls-left { left: max(16px, env(safe-area-inset-left)); }
@@ -336,7 +425,7 @@ dialog::backdrop {
 
 .touch-btn img {
     display: block;
-    width: clamp(48px, 9dvh, 84px);
+    width: clamp(58px, 13dvh, 108px);
     height: auto;
     pointer-events: none;
     opacity: 0.4;
@@ -351,7 +440,8 @@ dialog::backdrop {
 
 /* #region Media Queries */
 @media (max-width: 1024px) and (pointer: coarse) {
-    #close-btn {
+    #close-btn,
+    #imprint-close-btn {
         top: 6px;
         padding: 2px 6px;
         font-size: clamp(12px, 2dvw, 16px);
@@ -430,6 +520,17 @@ dialog::backdrop {
         width: 24px;
         height: 24px;
         font-size: 14px;
+    }
+
+    #imprint-btn {
+        top: 4px;
+        bottom: auto;
+        right: 74px;
+        width: auto;
+        height: 24px;
+        padding: 0 7px;
+        font-size: 11px;
+        letter-spacing: 0.5px;
     }
 }
 /* #endregion */
