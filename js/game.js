@@ -3,10 +3,18 @@ import { World } from '../models/world.class.js';
 import { IntervalHub } from '../helper_classes/intervalhub-helper.js';
 import { SoundHelper } from '../helper_classes/sound-helper.js';
 
+/** @type {HTMLCanvasElement|null} */
 let canvas;
+
+/** @type {World|null} */
 let world;
+
+/** @type {Keyboard} */
 let keyboard = new Keyboard();
 
+/**
+ * Cached references to frequently used DOM elements.
+ */
 const elements = {
     startScreen: document.getElementById('start-screen'),
     gameContainer: document.querySelector('.game-container'),
@@ -26,13 +34,17 @@ const elements = {
     soundToggleBtn: document.getElementById('sound-toggle-btn')
 };
 
-
+/**
+ * Initializes the game world and canvas.
+ */
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard, showGameOverScreen, showWinScreen);
 }
 
-
+/**
+ * Starts the game: plays sounds, hides UI elements, and initializes the world.
+ */
 function startGame() {
     SoundHelper.play(SoundHelper.gameStart, 0.5);
     SoundHelper.playBg();
@@ -54,41 +66,43 @@ function startGame() {
     init();
 }
 
-
+/**
+ * Restarts the game by stopping all sounds and intervals, then reloading the page.
+ */
 function restartGame() {
     SoundHelper.stopAll();
     IntervalHub.stopAllIntervals();
     location.reload();
 }
 
-
+/**
+ * Shows the game over screen.
+ */
 function showGameOverScreen() {
     if (elements.gameOverScreen) {
         elements.gameOverScreen.classList.add('show');
     }
 }
 
-
+/**
+ * Shows the win screen.
+ */
 function showWinScreen() {
     if (elements.winScreen) {
         elements.winScreen.classList.add('show');
     }
 }
 
-
-// Klick-Event für den Start-Button
+// --- Event Listeners for Start, Restart, Home ---
 if (elements.startBtn) {
     elements.startBtn.addEventListener('click', startGame);
 }
-// Restart-Button im Game-Over-Screen
 if (elements.restartBtn) {
     elements.restartBtn.addEventListener('click', restartGame);
 }
-// Restart-Button you Win Screen
 if (elements.restartBtnWin) {
     elements.restartBtnWin.addEventListener('click', restartGame);
 }
-// Home-Buttons in beiden End-Screens (zurück zum Startbildschirm)
 if (elements.homeBtn) {
     elements.homeBtn.addEventListener('click', restartGame);
 }
@@ -96,8 +110,11 @@ if (elements.homeBtnWin) {
     elements.homeBtnWin.addEventListener('click', restartGame);
 }
 
-
-// --- TOUCH CONTROLS (mobile) ---
+/**
+ * Binds touch controls to a DOM element for a specific keyboard key.
+ * @param {HTMLElement|null} el - The touch control element.
+ * @param {string} key - The key name on the keyboard object (e.g. 'LEFT', 'SPACE').
+ */
 function bindTouchControl(el, key) {
     if (!el) {
         return;
@@ -124,27 +141,35 @@ bindTouchControl(document.getElementById('touch-right'), 'RIGHT');
 bindTouchControl(document.getElementById('touch-jump'), 'SPACE');
 bindTouchControl(document.getElementById('touch-throw'), 'D');
 
-
-// --- INFO DIALOG ---
+/**
+ * Opens the info dialog.
+ */
 function openDialog() {
     if (elements.dialog) {
         elements.dialog.showModal();
     }
 }
 
-
+/**
+ * Closes the info dialog.
+ */
 function closeDialog() {
     if (elements.dialog) {
         elements.dialog.close();
     }
 }
 
-
+/**
+ * Checks if the start screen is currently visible.
+ * @returns {boolean} True if the start screen is visible, false otherwise.
+ */
 function isStartScreenVisible() {
     return elements.startScreen && elements.startScreen.style.display !== 'none';
 }
 
-
+/**
+ * Toggles the info dialog open/closed, but only when the start screen is visible.
+ */
 function toggleInfoDialog() {
     if (!isStartScreenVisible() || !elements.dialog) {
         return;
@@ -156,22 +181,19 @@ function toggleInfoDialog() {
     }
 }
 
-
-// Listener für den Dialog
 if (elements.infoBtn) {
     elements.infoBtn.addEventListener('click', toggleInfoDialog);
 }
 if (elements.closeBtn) {
     elements.closeBtn.addEventListener('click', closeDialog);
 }
-// Sound-Toggle-Button
+
 SoundHelper.init();
 if (elements.soundToggleBtn) {
     elements.soundToggleBtn.addEventListener('click', () => SoundHelper.toggleSound());
 }
 
-
-// --- TASTATUR EVENTS ---
+// --- Keyboard Events ---
 window.addEventListener('keydown', (event) => {
     if (event.code == 'ArrowLeft') {
         keyboard.LEFT = true;
@@ -194,10 +216,7 @@ window.addEventListener('keydown', (event) => {
     if (event.code == 'KeyI') {
         toggleInfoDialog();
     }
-    // console.log(event.code);
-    // console.log(keyboard.LEFT);
 });
-
 
 window.addEventListener('keyup', (event) => {
     if (event.code == 'ArrowLeft') {
@@ -218,5 +237,4 @@ window.addEventListener('keyup', (event) => {
     if (event.code == 'KeyD') {
         keyboard.D = false;
     }
-    // console.log(keyboard.LEFT);
 });

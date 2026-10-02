@@ -1,18 +1,31 @@
+/**
+ * Central manager for all setInterval timers in the project.
+ * Allows starting new intervals and stopping all registered intervals at once.
+ */
 export class IntervalHub {
-                // Speichert alle registrierten Interval-IDs
-                static allIntervals = [];
+    /**
+     * List of all active interval IDs.
+     * @type {number[]}
+     */
+    static allIntervals = [];
 
-                // Startet ein neues Intervall und
-                // fügt es dem Array allIntervals hinzu
-                static startInterval(func, timer) {
-                    const newInterval = setInterval(func, timer);
-                    IntervalHub.allIntervals.push(newInterval);
-                    return newInterval;
-                }
+    /**
+     * Starts a new interval and registers it in the IntervalHub.
+     * @param {Function} func - The function to execute on each tick.
+     * @param {number} timer - The interval duration in milliseconds.
+     * @returns {number} The interval ID returned by setInterval.
+     */
+    static startInterval(func, timer) {
+        const newInterval = setInterval(func, timer);
+        IntervalHub.allIntervals.push(newInterval);
+        return newInterval;
+    }
 
-                //Stoppt alle registrierten Intervalle und leert die Registry.
-                static stopAllIntervals() {
-                    IntervalHub.allIntervals.forEach(clearInterval);
-                    IntervalHub.allIntervals = [];
-                }
-            }
+    /**
+     * Stops all intervals registered in the IntervalHub and clears the list.
+     */
+    static stopAllIntervals() {
+        IntervalHub.allIntervals.forEach(clearInterval);
+        IntervalHub.allIntervals = [];
+    }
+}
