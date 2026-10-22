@@ -28,6 +28,8 @@ const elements = {
     imprintBtn: document.getElementById('imprint-btn'),
     imprintDialog: document.getElementById('imprint-dialog'),
     imprintCloseBtn: document.getElementById('imprint-close-btn'),
+    imprintText: document.querySelector('.imprint-text'),
+    imprintProgressBar: document.getElementById('imprint-progress-bar'),
     gameOverScreen: document.getElementById('game-over-screen'),
     restartBtn: document.getElementById('restart-btn'),
     homeBtn: document.getElementById('home-btn'),
@@ -157,6 +159,7 @@ function openDialog() {
     if (elements.dialog) {
         closeImprintDialog();
         elements.dialog.showModal();
+        elements.dialog.focus();
     }
 }
 
@@ -170,12 +173,34 @@ function closeDialog() {
 }
 
 /**
+ * Updates the gradient progress bar based on the imprint scroll position.
+ */
+function updateImprintProgress() {
+    if (!elements.imprintText || !elements.imprintProgressBar) {
+        return;
+    }
+    const maxScroll = elements.imprintText.scrollHeight - elements.imprintText.clientHeight;
+    const progress = maxScroll > 0 ? elements.imprintText.scrollTop / maxScroll : 0;
+    elements.imprintProgressBar.style.height = `${progress * 100}%`;
+    elements.imprintProgressBar.style.opacity = `${progress}`;
+}
+
+if (elements.imprintText) {
+    elements.imprintText.addEventListener('scroll', updateImprintProgress, { passive: true });
+}
+
+/**
  * Opens the imprint dialog.
  */
 function openImprintDialog() {
     if (elements.imprintDialog) {
         closeDialog();
         elements.imprintDialog.showModal();
+        elements.imprintDialog.focus();
+        if (elements.imprintText) {
+            elements.imprintText.scrollTop = 0;
+        }
+        updateImprintProgress();
     }
 }
 
