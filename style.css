@@ -3,6 +3,15 @@
     font-family: 'zabras';
     src: url('./assets/fonts/zabars.ttf') format('truetype');
 }
+
+/* rancho-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Rancho';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./assets/fonts/rancho-v22-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
 /* #endregion */
 
 /* #region Base-structure */
@@ -79,6 +88,8 @@ header {
 }
 
 .game-description p {
+    font-family: 'Rancho', 'zabras', Arial, Helvetica, sans-serif;
+    font-weight: 900;
     font-size: clamp(18px, 2.5dvw, 44px);
     line-height: 1.4;
     letter-spacing: 3px;
@@ -96,6 +107,7 @@ header {
 }
 
 .rotate-device p {
+    font-family: 'Rancho', 'zabras', Arial, Helvetica, sans-serif;
     padding: 12px 18px;
     font-size: clamp(32px, 7dvw, 56px);
     color: rgb(255, 209, 6);
@@ -155,6 +167,7 @@ header {
     cursor: pointer;
     background-color: rgb(255, 209, 6);
     color: black;
+    font-family: 'Rancho', 'zabras', Arial, Helvetica, sans-serif;
     font-weight: bold;
     letter-spacing: 4px;
     transition: transform 0.15s ease;
@@ -164,10 +177,17 @@ header {
     transform: scale(1.1);
 }
 
-.icon-btn {
+.control-buttons {
     position: absolute;
     bottom: 10px;
+    right: 10px;
     z-index: 30;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.icon-btn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -182,7 +202,7 @@ header {
     font-size: 18px;
     font-weight: bold;
     font-style: italic;
-    font-family: 'zabras', Arial, Helvetica, sans-serif;
+    font-family: 'Rancho', 'zabras', Arial, Helvetica, sans-serif;
     transition: transform 0.15s ease;
 }
 
@@ -195,8 +215,24 @@ header {
     pointer-events: none;
 }
 
-#sound-toggle-btn { right: 10px; }
-#info-btn { right: 50px; }
+#info-btn {
+    width: auto;
+    height: 32px;
+    padding: 0 12px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-style: normal;
+    letter-spacing: 2px;
+}
+#imprint-btn {
+    width: auto;
+    height: 32px;
+    padding: 0 12px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-style: normal;
+    letter-spacing: 2px;
+}
 /* #endregion */
 
 /* #region Dialog */
@@ -211,6 +247,10 @@ header {
     color: black;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.dialog-content:focus {
+    outline: none;
 }
 
 dialog::backdrop {
@@ -228,21 +268,220 @@ dialog::backdrop {
 
 #close-btn {
     position: absolute;
-    top: 2.7%;
-    right: 9%;
+    top: 1%;
+    right: 7%;
     z-index: 2;
-    padding: 4px 9px;
-    font-size: clamp(14px, 3vw, 28px);
-    color: black;
-    /* background-color: rgb(255, 209, 6); */
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.1s ease-in-out;
+    width: 64px;
+    height: 64px;
 }
 
-#close-btn:hover {
-    transform: scale(1.1);
+#close-btn .rotate-cross {
+    width: 30px;
+    height: 30px;
+}
+
+#close-btn .rotate-cross::before,
+#close-btn .rotate-cross::after {
+    width: 30px;
+    height: 3px;
+}
+
+/* #region Rotate Out Close Button */
+.rotate-close {
+    --ink: #3a2410;
+    --accent: darkred;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+#imprint-close-btn {
+    position: absolute;
+    top: 4%;
+    right: 9%;
+    z-index: 2;
+    width: 64px;
+    height: 64px;
+}
+
+#imprint-close-btn .rotate-cross {
+    width: 30px;
+    height: 30px;
+}
+
+#imprint-close-btn .rotate-cross::before,
+#imprint-close-btn .rotate-cross::after {
+    width: 30px;
+    height: 3px;
+}
+
+.rotate-cross {
+    position: relative;
+    width: 22px;
+    height: 22px;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rotate-cross::before,
+.rotate-cross::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 22px;
+    height: 2.5px;
+    border-radius: 2px;
+    background: var(--ink);
+    transition: background 0.25s ease;
+}
+
+.rotate-cross::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.rotate-cross::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+@media (hover: hover) {
+    .rotate-cross {
+        will-change: transform;
+    }
+
+    .rotate-close:hover .rotate-cross {
+        transform: rotate(180deg);
+    }
+
+    .rotate-close:hover .rotate-cross::before,
+    .rotate-close:hover .rotate-cross::after {
+        background: var(--accent);
+    }
+}
+
+.rotate-close:active {
+    transform: scale(0.92);
+}
+
+.rotate-close:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .rotate-cross,
+    .rotate-close {
+        transition: none;
+    }
+}
+/* #endregion */
+
+#imprint-dialog {
+    --imprint-w: min(93dvw, 940px, 158dvh);
+}
+
+.imprint-box {
+    position: relative;
+    width: var(--imprint-w);
+    aspect-ratio: 16 / 9;
+}
+
+.imprint-bg {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    pointer-events: none;
+    user-select: none;
+}
+
+.imprint-text {
+    /* padding: 14px; */
+    position: absolute;
+    top: 15%;
+    right: 14%;
+    bottom: 9%;
+    left: 14%;
+    overflow-y: auto;
+    padding-right: 18px;
+    text-align: left;
+    font-size: calc(var(--imprint-w) * 0.017);
+    line-height: 1.3;
+    color: #3a2410;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    overscroll-behavior-y: contain;
+}
+
+.imprint-text::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
+.imprint-progress-container {
+    position: absolute;
+    top: 15%;
+    bottom: 9%;
+    right: 14%;
+    width: 10px;
+    background: rgba(0, 0, 0, 0.01);
+    border-radius: 1000px;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.imprint-progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    opacity: 0;
+    border-radius: inherit;
+    background: linear-gradient(to top, #e7691550, #db650a);
+}
+
+.imprint-text h2 {
+    margin: 0 0 0.7em;
+    font-family: 'Rancho', 'zabras', Arial, Helvetica, sans-serif;
+    font-size: 1.6em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.imprint-text h3 {
+    margin: 1.1em 0 0.4em;
+    font-size: 1.05em;
+}
+
+.imprint-text h4 {
+    margin: 0.9em 0 0.3em;
+    font-size: 1em;
+}
+
+.imprint-text p {
+    margin: 0 0 0.7em;
+}
+
+.imprint-text a {
+    color: inherit;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.imprint-text a:focus,
+.imprint-text a:focus-visible {
+    outline: none;
+}
+
+.imprint-text:focus {
+    outline: none;
 }
 /* #endregion */
 
@@ -299,6 +538,7 @@ dialog::backdrop {
     cursor: pointer;
     background-color: rgb(255, 209, 6);
     color: black;
+    font-family: 'Rancho', 'zabras', Arial, Helvetica, sans-serif;
     font-weight: bold;
     transition: transform 0.1s ease-in-out;
     word-spacing: 5px;
@@ -317,7 +557,7 @@ dialog::backdrop {
     transform: translateY(-50%);
     z-index: 15;
     display: none;
-    gap: 14px;
+    gap: 0px;
 }
 
 .touch-controls-left { left: max(16px, env(safe-area-inset-left)); }
@@ -336,7 +576,7 @@ dialog::backdrop {
 
 .touch-btn img {
     display: block;
-    width: clamp(48px, 9dvh, 84px);
+    width: clamp(68px, 15dvh, 120px);
     height: auto;
     pointer-events: none;
     opacity: 0.4;
@@ -351,10 +591,39 @@ dialog::backdrop {
 
 /* #region Media Queries */
 @media (max-width: 1024px) and (pointer: coarse) {
+    .start-btn {
+        width: 110px;
+        height: 44px;
+        font-size: 24px;
+    }
+
     #close-btn {
-        top: 6px;
-        padding: 2px 6px;
-        font-size: clamp(12px, 2dvw, 16px);
+        top: 4px;
+    }
+
+    #imprint-close-btn {
+        top: 4%;
+        right: 11%;
+    }
+
+    #close-btn,
+    #imprint-close-btn {
+        width: 36px;
+        height: 36px;
+    }
+
+    #close-btn .rotate-cross,
+    #imprint-close-btn .rotate-cross {
+        width: 18px;
+        height: 18px;
+    }
+
+    #close-btn .rotate-cross::before,
+    #close-btn .rotate-cross::after,
+    #imprint-close-btn .rotate-cross::before,
+    #imprint-close-btn .rotate-cross::after {
+        width: 18px;
+        height: 2px;
     }
 }
 
@@ -411,10 +680,13 @@ dialog::backdrop {
         display: flex;
     }
 
-    #sound-toggle-btn {
-        top: 4px;
-        bottom: auto;
+    .control-buttons {
+        bottom: 10px;
         right: 10px;
+        gap: 8px;
+    }
+
+    #sound-toggle-btn {
         width: 24px;
         height: 24px;
     }
@@ -424,12 +696,19 @@ dialog::backdrop {
     }
 
     #info-btn {
-        top: 4px;
-        bottom: auto;
-        right: 42px;
-        width: 24px;
+        width: auto;
         height: 24px;
-        font-size: 14px;
+        padding: 0 7px;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+    }
+
+    #imprint-btn {
+        width: auto;
+        height: 24px;
+        padding: 0 7px;
+        font-size: 13px;
+        letter-spacing: 0.5px;
     }
 }
 /* #endregion */
